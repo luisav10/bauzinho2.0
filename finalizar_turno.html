@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baú da Merenda Digital - Finalizar Turno</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header-modern-chic">
+        <img src="logo_bau_merenda_clean.png" alt="Logo Baú da Merenda" class="logo-chic">
+        <h1>Finalizar Turno</h1>
+        <p>Hora de gerar o relatório e preparar para o próximo turno.</p>
+    </header>
+
+    <main class="main-content-modern-chic">
+        <section class="section-card" style="max-width: 600px; margin: 50px auto;">
+            <h2>Relatório Final do Turno</h2>
+            <p>Para registrar o encerramento deste turno, por favor, gere o relatório em PDF.</p>
+            <p>Após a geração, os dados de contagem da merenda serão zerados, e você poderá iniciar um novo cardápio.</p>
+            
+            <div id="relatorio-final-display" style="text-align: left; margin-bottom: 30px; border: 1px solid var(--border-color); padding: 20px; border-radius: var(--border-radius-soft); background-color: #fdfdfd;">
+                <p>Carregando dados do relatório...</p>
+            </div>
+
+            <button id="gerar-relatorio-pdf-final" class="btn-chic action">Gerar Relatório em PDF</button>
+            <button id="cancelar-finalizar-btn" class="btn-chic secondary-outline">Voltar ao Painel</button>
+        </section>
+    </main>
+
+    <footer class="footer-modern-chic">
+        <p>&copy; 2025 Baú da Merenda. Projeto para a FETEPS.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="finalizar_turno_script.js"></script>
+</body>
+</html>
