@@ -1,40 +1,49 @@
 /* style.css */
 
 :root {
-    /* Cores ajustadas para um tema mais sofisticado com a nova paleta */
-    --primary-color: #8F691D;       /* Marrom-dourado mais escuro */
-    --secondary-color: #AB792D;      /* Marrom-dourado mais claro */
-    --accent-color: #302A22;        /* Marrom-escuro quase preto, para detalhes/destaque */
-    --text-dark: #29241D;           /* Marrom muito escuro, quase preto, para textos principais */
-    --text-light: #FFFFFF;          /* Branco puro para textos sobre fundos escuros */
-    --background-white: #FFFFFF;    /* Fundo principal branco */
-    --border-color: #B5B5B5;        /* Cinza claro para bordas suaves */
-    --error-red: #D9534F;           /* Vermelho para erros (mantido para clareza) */
-    --gold-accent: #AB792D;         /* Usando o secondary-color como "gold" para uniformidade e brilho */
-    --gray-medium: #ABA9AB;         /* Cinza médio-claro para detalhes secundários */
+    /* Paleta de Cores: Sofisticada, Madura e Moderna (inspirada nas suas cores) */
+    --primary-color: #60482D; /* Marrom escuro, a cor principal para fundos e botões primários */
+    --secondary-color: #AF8F60; /* Dourado/Bronze claro, para acentos, títulos e destaques */
+    --accent-color: #876B47; /* Marrom-dourado intermediário, para bordas, hovers e elementos secundários */
+    --text-dark: #3e1c00; /* Um marrom muito escuro, quase preto, para garantir legibilidade dos textos principais */
+    --text-light: #FFFFFF; /* Branco puro para textos sobre fundos escuros */
+    --background-white: #FFFFFF; /* Fundo principal branco */
+    --border-color: #DDDDDD; /* Cinza muito claro para bordas suaves e divisões */
+    
+    /* Cores de Cinza para elementos secundários */
+    --gray-light: #F8F8F8; /* Um cinza muito, muito claro, quase branco, para seções com fundo suave */
+    --gray-medium: #CCCCCC; /* Cinza médio para bordas ou elementos que precisam de um pouco mais de presença */
+    --gray-dark: #BBBBBB; /* Um cinza um pouco mais escuro para fundos secundários */
 
-    /* Variáveis de cor com o sufixo -dark e -light, se necessário */
-    --primary-color-dark: #745218;  /* Versão mais escura do primary para hover */
-    --secondary-color-dark: #906324; /* Versão mais escura do secondary para hover */
-    --accent-color-light: #5A5248;  /* Versão mais clara do accent para detalhes */
+    /* NOVO: Cor de fundo para as divs principais do index, um off-white cremoso */
+    --section-background-color: #FDF9F6; /* Um off-white quente, puxado para o bege claro */
+
+    /* Cores para Ações Específicas (VERMELHO e VERDE) */
+    --action-success: #28a745; /* Verde para ações de sucesso/confirmação */
+    --action-danger: #dc3545; /* Vermelho para ações de perigo/cancelamento */
+
+    /* Cores ajustadas para hover/darker versions */
+    --primary-color-dark: #493A22; /* Versão mais escura do primary para hover (derivado de 60482D) */
+    --secondary-color-dark: #815c2a; /* Usando 815c2a como versão mais escura do secondary para hover */
+    --accent-color-light: #A08361; /* Versão mais clara do accent para detalhes */
 
     /* Variáveis de sombra e raio de borda (mantidas como estão, pois são de estrutura e não cor) */
     --border-radius-soft: 8px;
-    --box-shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --box-shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08); 
     --transition-speed-fast: 0.2s ease-in-out;
     --transition-speed-normal: 0.3s ease-in-out;
 
     --border-radius-input: 6px;
     --border-radius-button: 25px;
-    --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.15);
-    --shadow-deep: 0 10px 20px rgba(0, 0, 0, 0.2);
+    --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.08); 
+    --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.12); 
+    --shadow-deep: 0 10px 20px rgba(0, 0, 0, 0.18); 
 }
 
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: var(--background-white); /* Fundo principal branco */
-    color: var(--text-dark); /* Texto principal marrom muito escuro */
+    color: var(--text-dark); /* Texto principal marrom muito escuro para legibilidade */
     margin: 0;
     padding: 0;
     display: flex;
@@ -48,13 +57,13 @@ body {
 /* Títulos com fonte serifada elegante */
 h1, h2, h3 {
     font-family: 'Playfair Display', serif;
-    color: var(--primary-color); /* Marrom-dourado escuro para títulos */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+    color: var(--primary-color); /* Marrom principal para títulos */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05); /* Sombra mais sutil */
 }
 
 /* Cabeçalho */
 .header-modern-chic {
-    background-color: var(--primary-color); /* Marrom-dourado escuro */
+    background-color: var(--primary-color); /* Marrom escuro */
     color: var(--text-light); /* Texto branco */
     width: 100%;
     padding: 25px 0;
@@ -68,19 +77,19 @@ h1, h2, h3 {
     height: 90px;
     margin-bottom: 15px;
     border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); 
 }
 
 .header-modern-chic h1 {
     font-size: 3em;
-    color: var(--secondary-color); /* Marrom-dourado claro para contraste sutil */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    color: var(--secondary-color); /* Dourado/Bronze claro para o título principal */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra para realce e legibilidade */
     margin: 0;
 }
 
 .header-modern-chic p {
     font-size: 1.2em;
-    color: rgba(255, 255, 255, 0.8); /* Branco com transparência para subtítulos */
+    color: rgba(255, 255, 255, 0.9); /* Branco com pouca transparência para subtítulos, para legibilidade */
     margin-top: 10px;
 }
 
@@ -96,7 +105,7 @@ h1, h2, h3 {
     flex-direction: column;
     align-items: flex-end;
     font-size: 0.9em;
-    color: rgba(255, 255, 255, 0.7); /* Branco com transparência para info */
+    color: rgba(255, 255, 255, 0.85); /* Branco com transparência para info, mas mais opaco */
 }
 
 .info-item {
@@ -107,8 +116,8 @@ h1, h2, h3 {
 .info-item.prominent-turno {
     font-size: 1.2em;
     font-weight: 700;
-    color: var(--secondary-color); /* Usando secondary como "gold" para destaque */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    color: var(--secondary-color); /* Usando secondary para destaque */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15); 
 }
 
 /* Conteúdo Principal */
@@ -123,8 +132,8 @@ h1, h2, h3 {
 }
 
 .section-card {
-    background-color: var(--background-white); /* Fundo branco */
-    border: 1px solid var(--border-color); /* Borda cinza claro */
+    background-color: var(--section-background-color); /* NOVO: Cor de fundo para o card "Monte o seu prato" */
+    border: 1px solid var(--border-color); /* Borda cinza muito claro */
     border-radius: var(--border-radius-soft);
     padding: 35px;
     box-shadow: var(--box-shadow-subtle);
@@ -138,7 +147,8 @@ h1, h2, h3 {
     font-size: 2.2em;
     margin-bottom: 25px;
     padding-bottom: 15px;
-    border-bottom: 1px solid var(--border-color); /* Borda cinza claro */
+    border-bottom: 1px solid var(--border-color); /* Borda cinza muito claro */
+    color: var(--primary-color); /* Títulos dentro do card em marrom escuro */
 }
 
 /* Seção de Acesso à Merendeira (abaixo do cardápio do aluno) */
@@ -146,14 +156,15 @@ h1, h2, h3 {
     flex-basis: 100%;
     margin-top: 20px;
     padding: 25px;
-    background-color: var(--gray-medium); /* Cinza médio-claro */
-    color: var(--text-dark); /* Texto marrom muito escuro */
+    background-color: var(--gray-dark); /* Um cinza um pouco mais escuro para contraste */
+    color: var(--text-light); /* Texto branco sobre fundo escuro */
+    border-radius: var(--border-radius-soft);
 }
 
 .admin-access-section p {
     font-size: 1.1em;
     margin-bottom: 15px;
-    color: var(--text-dark); /* Texto marrom muito escuro */
+    color: var(--text-light); /* Texto branco */
 }
 
 /* Estilo para itens do cardápio do aluno (sem imagem) */
@@ -166,14 +177,14 @@ h1, h2, h3 {
 
 .item-merenda-chic {
     background-color: var(--background-white); /* Fundo branco */
-    border: 1px solid var(--border-color); /* Borda cinza claro */
+    border: 1px solid var(--border-color); /* Borda cinza muito claro */
     border-radius: var(--border-radius-soft);
     padding: 20px;
     text-align: center;
     cursor: pointer;
     transition: all var(--transition-speed-normal);
     position: relative;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -183,14 +194,14 @@ h1, h2, h3 {
 
 .item-merenda-chic:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    border-color: var(--secondary-color); /* Marrom-dourado claro no hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); 
+    border-color: var(--accent-color); /* Marrom-dourado intermediário no hover */
 }
 
 .item-merenda-chic.selected {
-    border-color: var(--secondary-color); /* Marrom-dourado claro */
-    background-color: rgba(171, 121, 45, 0.08); /* Fundo suave de destaque (secondary com transparência) */
-    box-shadow: 0 0 0 3px rgba(171, 121, 45, 0.3), var(--box-shadow-subtle); /* Borda de destaque suave */
+    border-color: var(--secondary-color); /* Dourado/Bronze claro */
+    background-color: rgba(175, 143, 96, 0.1); /* Fundo suave de destaque (secondary com transparência) */
+    box-shadow: 0 0 0 3px rgba(175, 143, 96, 0.3), var(--box-shadow-subtle); 
     transform: scale(1.02);
 }
 
@@ -205,8 +216,8 @@ h1, h2, h3 {
 .item-merenda-chic::after {
     content: '✓';
     color: var(--text-light); /* Branco para o tick */
-    background-color: var(--primary-color); /* Marrom-dourado escuro para o fundo do tick */
-    border: 2px solid var(--primary-color); /* Borda marrom-dourado escuro */
+    background-color: var(--secondary-color); /* Dourado/Bronze claro para o fundo do tick */
+    border: 2px solid var(--secondary-color); 
     border-radius: 50%;
     position: absolute;
     top: 10px;
@@ -232,14 +243,14 @@ h1, h2, h3 {
     align-items: center;
     justify-content: center;
     margin-top: 15px;
-    background-color: var(--border-color); /* Fundo cinza claro */
+    background-color: var(--gray-medium); /* Fundo cinza médio */
     padding: 5px;
     border-radius: 20px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08); 
 }
 
 .quantity-btn {
-    background-color: var(--primary-color); /* Marrom-dourado escuro */
+    background-color: var(--primary-color); /* Marrom escuro */
     color: var(--text-light); /* Texto branco */
     border: none;
     width: 35px;
@@ -249,11 +260,11 @@ h1, h2, h3 {
     font-weight: bold;
     cursor: pointer;
     transition: background-color var(--transition-speed-fast);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); 
 }
 
 .quantity-btn:hover {
-    background-color: var(--primary-color-dark); /* Marrom-dourado escuro mais escuro */
+    background-color: var(--primary-color-dark); /* Marrom mais escuro */
 }
 
 .item-quantity {
@@ -269,43 +280,43 @@ h1, h2, h3 {
     display: inline-block;
     padding: 15px 30px;
     border: none;
-    border-radius: var(--border-radius-button); /* Usando 25px */
+    border-radius: var(--border-radius-button); 
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 1.1em;
     text-transform: uppercase;
     transition: all var(--transition-speed-normal);
-    box-shadow: var(--shadow-soft); /* Usando shadow-soft */
+    box-shadow: var(--shadow-soft); 
     text-decoration: none;
     margin: 10px auto;
 }
 
 .btn-chic.primary {
-    background-color: var(--primary-color); /* Marrom-dourado escuro */
+    background-color: var(--primary-color); /* Marrom escuro */
     color: var(--text-light); /* Texto branco */
 }
 
 .btn-chic.primary:hover {
-    background-color: var(--primary-color-dark); /* Marrom-dourado escuro mais escuro */
+    background-color: var(--primary-color-dark); /* Marrom mais escuro */
     transform: translateY(-2px);
     box-shadow: var(--shadow-medium);
 }
 
 .btn-chic.primary:disabled {
-    background-color: var(--border-color); /* Cinza claro */
+    background-color: var(--gray-medium); /* Cinza médio */
     cursor: not-allowed;
     box-shadow: none;
-    color: var(--gray-medium); /* Texto cinza */
+    color: var(--text-dark); /* Texto marrom escuro */
 }
 
 .btn-chic.secondary {
-    background-color: var(--secondary-color); /* Marrom-dourado claro */
+    background-color: var(--secondary-color); /* Dourado/Bronze claro */
     color: var(--text-dark); /* Texto marrom muito escuro */
 }
 
 .btn-chic.secondary:hover {
-    background-color: var(--secondary-color-dark); /* Marrom-dourado claro mais escuro */
+    background-color: var(--secondary-color-dark); /* Marrom 815c2a */
     color: var(--text-light); /* Texto branco */
     transform: translateY(-2px);
     box-shadow: var(--shadow-medium);
@@ -313,12 +324,12 @@ h1, h2, h3 {
 
 .btn-chic.secondary-outline {
     background-color: transparent;
-    color: var(--primary-color); /* Marrom-dourado escuro */
-    border: 2px solid var(--primary-color); /* Marrom-dourado escuro */
+    color: var(--primary-color); /* Marrom escuro */
+    border: 2px solid var(--primary-color); /* Marrom escuro */
 }
 
 .btn-chic.secondary-outline:hover {
-    background-color: var(--primary-color); /* Marrom-dourado escuro */
+    background-color: var(--primary-color); /* Marrom escuro */
     color: var(--text-light); /* Texto branco */
     transform: translateY(-2px);
     box-shadow: var(--shadow-medium);
@@ -326,8 +337,8 @@ h1, h2, h3 {
 
 /* Novo estilo para o botão "Voltar para Alunos" para mais visibilidade */
 .btn-chic.prominent-secondary {
-    background-color: var(--secondary-color); /* Marrom-dourado claro (como seu "gold-accent" agora) */
-    color: var(--text-light); /* Texto branco */
+    background-color: var(--secondary-color); /* Dourado/Bronze claro para destaque */
+    color: var(--text-dark); /* Texto marrom escuro */
     border: 2px solid var(--secondary-color);
     padding: 15px 35px;
     font-size: 1.2em;
@@ -335,31 +346,43 @@ h1, h2, h3 {
 }
 
 .btn-chic.prominent-secondary:hover {
-    background-color: var(--secondary-color-dark); /* Marrom-dourado claro mais escuro */
+    background-color: var(--secondary-color-dark); /* Marrom 815c2a */
     border-color: var(--secondary-color-dark);
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); 
 }
 
 .btn-chic.action { /* Para botões de ação do admin como "Gerar PDF" */
-    background-color: var(--accent-color); /* Marrom-escuro quase preto */
+    background-color: var(--primary-color); /* Marrom escuro */
     color: var(--text-light); /* Texto branco */
     margin-top: 25px;
 }
 
 .btn-chic.action:hover {
-    background-color: var(--accent-color-light); /* Marrom-escuro mais claro */
+    background-color: var(--primary-color-dark); /* Marrom mais escuro */
     transform: translateY(-2px);
 }
 
-.btn-chic.action-danger { /* Para "Zerar Dados" */
-    background-color: var(--error-red); /* Vermelho */
+/* Botões VERMELHO e VERDE para facilitar o entendimento */
+.btn-chic.action-success { /* Para "Finalizar Turno" ou ações positivas */
+    background-color: var(--action-success); /* Verde */
+    color: var(--text-light); /* Texto branco */
+    margin-top: 15px;
+}
+
+.btn-chic.action-success:hover {
+    background-color: #218838; /* Verde um pouco mais escuro */
+    transform: translateY(-2px);
+}
+
+.btn-chic.action-danger { /* Para "Zerar Dados" ou ações negativas */
+    background-color: var(--action-danger); /* Vermelho */
     color: var(--text-light); /* Texto branco */
     margin-top: 15px;
 }
 
 .btn-chic.action-danger:hover {
-    background-color: #bb2d3b; /* Vermelho um pouco mais escuro */
+    background-color: #c82333; /* Vermelho um pouco mais escuro */
     transform: translateY(-2px);
 }
 
@@ -378,14 +401,14 @@ h1, h2, h3 {
     gap: 15px;
     margin-bottom: 25px;
     padding-bottom: 15px;
-    border-bottom: 1px solid var(--border-color); /* Borda cinza claro */
+    border-bottom: 1px solid var(--border-color); /* Borda cinza muito claro */
 }
 
 .header-cardapio-admin h2 {
     margin: 0;
     border-bottom: none;
     padding-bottom: 0;
-    color: var(--primary-color); /* Marrom-dourado escuro para títulos */
+    color: var(--primary-color); /* Marrom escuro para títulos */
     width: 100%;
     text-align: center;
 }
@@ -397,12 +420,12 @@ h1, h2, h3 {
     padding: 30px;
     box-shadow: var(--shadow-deep);
     border-radius: var(--border-radius-soft);
-    background-color: var(--background-white); /* Fundo branco */
+    background-color: var(--section-background-color); /* NOVO: Cor de fundo para o card de autenticação */
     text-align: center;
 }
 
 .auth-card h2 {
-    color: var(--primary-color); /* Marrom-dourado escuro */
+    color: var(--primary-color); /* Marrom escuro */
     margin-bottom: 20px;
     font-family: 'Playfair Display', serif;
     font-weight: 700;
@@ -420,7 +443,7 @@ h1, h2, h3 {
     flex-direction: column;
     gap: 15px;
     margin-top: 20px;
-    align-items: center; /* Mantido para centralizar os elementos como antes */
+    align-items: center; 
 }
 
 .auth-form input[type="text"],
@@ -428,29 +451,29 @@ h1, h2, h3 {
 .item-form input[type="text"],
 .item-form select {
     padding: 14px 18px;
-    border: 1px solid var(--border-color); /* Borda cinza claro */
+    border: 1px solid var(--border-color); /* Borda cinza muito claro */
     border-radius: var(--border-radius-input);
     font-size: 1.05em;
     background-color: var(--background-white); /* Fundo branco */
     color: var(--text-dark); /* Texto marrom muito escuro */
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04); 
     transition: border-color var(--transition-speed-fast), box-shadow var(--transition-speed-fast);
     width: calc(100% - 36px);
     box-sizing: border-box;
-    max-width: 300px; /* Mantido para alinhar com password-hint */
+    max-width: 300px; 
 }
 
 .auth-form input[type="text"]:focus,
 .auth-form input[type="password"]:focus,
 .item-form input[type="text"]:focus,
 .item-form select:focus {
-    border-color: var(--secondary-color); /* Marrom-dourado claro no foco */
+    border-color: var(--accent-color); /* Marrom-dourado intermediário no foco */
     outline: none;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 3px rgba(171, 121, 45, 0.2); /* Sombra secundária suave */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 3px rgba(135, 107, 71, 0.2); 
 }
 
 #auth-message {
-    color: var(--error-red); /* Mantido vermelho para erros */
+    color: var(--action-danger); /* Vermelho para erros */
     font-weight: 600;
     margin-top: 15px;
     font-size: 0.95em;
@@ -503,35 +526,36 @@ h1, h2, h3 {
     text-align: left;
     margin-top: 20px;
     padding-top: 20px;
-    border-top: 1px solid var(--border-color); /* Borda cinza claro */
+    border-top: 1px solid var(--border-color); /* Borda cinza muito claro */
 }
 
 .cardapio-item-admin {
-    background-color: #F8F8F8; /* Um fundo mais claro */
-    border: 1px solid var(--border-color); /* Borda cinza claro */
-    border-radius: var(--border-radius-soft) / 2;
+    background-color: var(--gray-light); /* Cinza muito claro */
+    border: 1px solid var(--border-color); /* Borda cinza muito claro */
+    border-radius: calc(var(--border-radius-soft) / 2);
     padding: 12px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 1.05em;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03); 
 }
 
 .cardapio-item-admin .item-info {
     flex-grow: 1;
     font-weight: 500;
+    color: var(--text-dark);
 }
 
 .cardapio-item-admin .item-type {
     font-size: 0.85em;
-    color: var(--primary-color); /* Marrom-dourado escuro */
+    color: var(--primary-color); /* Marrom escuro */
     font-style: italic;
     margin-left: 10px;
 }
 
 .cardapio-item-admin .delete-btn {
-    background-color: var(--error-red); /* Vermelho */
+    background-color: var(--action-danger); /* Vermelho */
     color: var(--text-light); /* Texto branco */
     border: none;
     border-radius: 5px;
@@ -557,13 +581,13 @@ h1, h2, h3 {
 
 #relatorio-contagem-merendeira strong {
     font-weight: 700;
-    color: var(--primary-color); /* Marrom-dourado escuro */
+    color: var(--primary-color); /* Marrom escuro */
 }
 
 #relatorio-contagem-merendeira span {
     font-family: 'Playfair Display', serif;
     font-size: 1.1em;
-    color: var(--secondary-color); /* Marrom-dourado claro para os números */
+    color: var(--secondary-color); /* Dourado/Bronze claro para os números */
     margin-left: 8px;
     font-weight: 700;
 }
@@ -575,7 +599,7 @@ h1, h2, h3 {
     margin: 30px auto;
     padding: 20px;
     background-color: var(--background-white); /* Fundo branco */
-    border: 1px solid var(--border-color); /* Borda cinza claro */
+    border: 1px solid var(--border-color); /* Borda cinza muito claro */
     border-radius: var(--border-radius-soft);
     box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.05);
 }
@@ -590,27 +614,27 @@ h1, h2, h3 {
 
 .btn-turno-radio {
     background-color: var(--background-white); /* Fundo branco */
-    color: var(--primary-color); /* Marrom-dourado escuro */
+    color: var(--primary-color); /* Marrom escuro */
     padding: 12px 25px;
-    border: 2px solid var(--border-color); /* Borda cinza claro */
+    border: 2px solid var(--gray-medium); /* Borda cinza médio */
     border-radius: var(--border-radius-soft);
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     transition: all var(--transition-speed-fast);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); 
 }
 
 .btn-turno-radio:hover {
-    border-color: var(--secondary-color); /* Marrom-dourado claro */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-color: var(--accent-color); /* Marrom-dourado intermediário */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12); 
 }
 
 .btn-turno-radio.selected {
-    background-color: var(--secondary-color); /* Fundo preenchido com marrom-dourado claro */
+    background-color: var(--secondary-color); /* Fundo preenchido com Dourado/Bronze claro */
     color: var(--text-dark); /* Texto marrom muito escuro para contraste */
-    border-color: var(--primary-color); /* Borda marrom-dourado escuro para destaque */
-    box-shadow: 0 0 0 3px rgba(143, 105, 29, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra de destaque */
+    border-color: var(--primary-color); /* Borda marrom escuro para destaque */
+    box-shadow: 0 0 0 3px rgba(96, 72, 45, 0.2), 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra de destaque */
     transform: translateY(-2px);
 }
 
@@ -619,11 +643,11 @@ h1, h2, h3 {
     width: 100%;
     padding: 20px 0;
     text-align: center;
-    background-color: var(--primary-color); /* Marrom-dourado escuro */
-    color: var(--secondary-color); /* Marrom-dourado claro */
+    background-color: var(--primary-color); /* Marrom escuro */
+    color: var(--secondary-color); /* Dourado/Bronze claro */
     font-size: 0.9em;
     margin-top: auto;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08); 
 }
 
 /* Responsividade */
@@ -704,7 +728,7 @@ h1, h2, h3 {
     margin-bottom: 0;
     width: 100%;
     text-align: center;
-    color: var(--primary-color); /* Marrom-dourado escuro */
+    color: var(--primary-color); /* Marrom escuro */
 }
 
 /* Estilos para o parágrafo do turno */
@@ -728,10 +752,10 @@ h1, h2, h3 {
 
 /* Estilos para os botões individuais de turno */
 .btn-turno-admin {
-    background-color: var(--secondary-color); /* Marrom-dourado claro */
-    color: var(--text-light); /* Texto branco */
+    background-color: var(--gray-medium); /* Cinza médio */
+    color: var(--text-dark); /* Texto marrom escuro */
     padding: 10px 15px;
-    border: none;
+    border: 1px solid var(--border-color);
     border-radius: 5px;
     cursor: pointer;
     font-weight: 600;
@@ -740,12 +764,12 @@ h1, h2, h3 {
 }
 
 .btn-turno-admin:hover {
-    background-color: var(--secondary-color-dark); /* Marrom-dourado claro mais escuro */
+    background-color: var(--gray-dark); /* Cinza mais escuro no hover */
 }
 
 .btn-turno-admin.active {
-    background-color: var(--primary-color); /* Marrom-dourado escuro para o botão ativo */
-    border: 2px solid var(--accent-color); /* Borda marrom-escuro quase preto para destaque */
+    background-color: var(--primary-color); /* Marrom escuro para o botão ativo */
+    border: 2px solid var(--secondary-color); /* Borda dourado/bronze para destaque */
     color: var(--text-light); /* Texto branco */
 }
 
@@ -756,7 +780,7 @@ h1, h2, h3 {
     width: calc(100% - 20px);
     margin-top: -5px;
     margin-bottom: 10px;
-    color: var(--gray-medium); /* Cinza médio-claro para a dica */
+    color: var(--text-dark); /* Marrom muito escuro para a dica, garantindo legibilidade */
     font-size: 0.85em;
     margin-left: auto;
     margin-right: auto;
@@ -778,11 +802,11 @@ h1, h2, h3 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--primary-color); /* Marrom-dourado escuro para o pop-up */
+    background-color: var(--primary-color); /* Marrom escuro para o pop-up */
     color: var(--text-light); /* Texto branco */
     padding: 20px 30px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
@@ -796,4 +820,4 @@ h1, h2, h3 {
 .popup-message.show {
     opacity: 1;
     visibility: visible;
-}co
+}
