@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baú da Merenda Digital - Autenticação da Merendeira</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header-modern-chic">
+        <img src="logo_bau_merenda_clean.png" alt="Logo Baú da Merenda" class="logo-chic">
+        <h1>Acesso da Merendeira</h1>
+        <p>Faça login ou cadastre-se para acessar o painel.</p>
+    </header>
+
+    <main class="main-content-modern-chic">
+        <section id="auth-section" class="section-card auth-card">
+            <p id="auth-message"></p>
+
+            <form id="login-form" class="auth-form">
+                <h2>Login</h2>
+                <input type="text" id="login-usuario" placeholder="Usuário" required>
+                <input type="password" id="login-senha" placeholder="Senha" required>
+                <button type="submit" class="btn-chic primary">Entrar</button>
+                <button type="button" id="show-cadastro-btn" class="btn-chic secondary-outline">Novo Cadastro</button>
+                <button type="button" id="show-recuperar-senha-btn" class="btn-chic text-link">Esqueci minha senha</button>
+            </form>
+
+            <form id="cadastro-form" class="auth-form" style="display:none;">
+                <h2>Novo Cadastro</h2>
+                <input type="text" id="cadastro-usuario" placeholder="Defina um Usuário" required>
+                <input type="password" id="cadastro-senha" placeholder="Defina uma Senha" required>
+                <small class="password-hint">Mínimo 8 caracteres, contendo letras e números.</small>
+                <input type="password" id="confirmar-senha" placeholder="Confirme a Senha" required>
+                <button type="submit" class="btn-chic primary">Cadastrar</button>
+                <button type="button" id="hide-cadastro-btn" class="btn-chic secondary-outline">Voltar para Login</button>
+            </form>
+
+            <form id="recuperar-senha-form" class="auth-form" style="display:none;">
+                <h2>Recuperar Senha</h2>
+                <p class="small-text">Para recuperar sua senha, insira o usuário e a nova senha desejada.</p>
+                <input type="text" id="recuperar-usuario" placeholder="Seu Usuário" required>
+                <input type="password" id="nova-senha" placeholder="Nova Senha" required>
+                <small class="password-hint">Mínimo 8 caracteres, contendo letras e números.</small>
+                <input type="password" id="confirmar-nova-senha" placeholder="Confirme a Nova Senha" required>
+                <button type="submit" class="btn-chic primary">Definir Nova Senha</button>
+                <button type="button" id="hide-recuperar-senha-btn" class="btn-chic secondary-outline">Voltar para Login</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer-modern-chic">
+        <p>&copy; 2025 Baú da Merenda. Projeto para a FETEPS.</p>
+    </footer>
+
+    <script src="login_cadastro_script.js"></script>
+</body>
+</html>

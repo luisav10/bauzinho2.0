@@ -14,47 +14,20 @@
         <h1>Painel da Merendeira</h1>
         <p>Gerencie o cardápio e acompanhe a demanda.</p>
         <nav>
-            <a href="index.html" class="btn-chic prominent-secondary">Voltar para Alunos</a>
-        </nav>
+            </nav>
     </header>
 
     <main class="main-content-modern-chic">
-        <section id="auth-section" class="section-card auth-card">
-            <h2>Bem-vinda, Merendeira!</h2>
-            <p id="auth-message"></p>
-            <form id="login-form" class="auth-form">
-                <input type="text" id="login-usuario" placeholder="Usuário" required>
-                <input type="password" id="login-senha" placeholder="Senha" required>
-                <button type="submit" class="btn-chic primary">Login</button>
-            </form>
-            <button id="show-cadastro-btn" class="btn-chic secondary-outline">Novo Cadastro</button>
-
-            <form id="cadastro-form" class="auth-form" style="display:none;">
-                <h3>Realizar Cadastro</h3>
-                <input type="text" id="cadastro-usuario" placeholder="Defina um Usuário" required>
-                <input type="password" id="cadastro-senha" placeholder="Defina uma Senha" required>
-                <input type="password" id="confirmar-senha" placeholder="Confirme a Senha" required>
-                <button type="submit" class="btn-chic primary">Cadastrar</button>
-                <button type="button" id="hide-cadastro-btn" class="btn-chic secondary-outline">Voltar para Login</button>
-            </form>
-        </section>
-
-        <section id="turno-selection-section" class="section-card turno-gerenciamento-section" style="display:none;">
-            <h2>Selecione o Turno da Merenda</h2>
-            <p>Por favor, indique qual turno de merenda você está gerenciando.</p>
-            <div class="turnos-buttons-admin">
-                <button class="btn-turno-admin" data-turno="Manhã">Manhã</button>
-                <button class="btn-turno-admin" data-turno="Tarde">Tarde</button>
-                <button class="btn-turno-admin" data-turno="Noite">Noite</button>
-            </div>
-            <p>Turno atualmente selecionado: <strong id="current-active-turno-display">Não definido</strong></p>
-        </section>
-
-        <section id="admin-panel-section" style="display:none; flex-wrap: wrap; gap: 30px; justify-content: center;">
+        <section id="admin-panel-section" style="flex-wrap: wrap; gap: 30px; justify-content: center;">
             <section id="cardapio-gerenciamento-section" class="section-card">
                 <div class="header-cardapio-admin">
                     <h2>Gerenciar Cardápio do Dia</h2>
-                    <button id="change-turno-btn" class="btn-chic secondary-outline small-btn">Mudar Turno</button>
+                    <p>Qual turno você está gerenciando? (<strong id="current-active-turno-display">Não definido</strong>)</p>
+                    <div class="turnos-buttons-admin">
+                        <button class="btn-turno-admin" data-turno="Manhã">Manhã</button>
+                        <button class="btn-turno-admin" data-turno="Tarde">Tarde</button>
+                        <button class="btn-turno-admin" data-turno="Noite">Noite</button>
+                    </div>
                 </div>
                 <form id="add-item-form" class="item-form">
                     <input type="text" id="item-nome" placeholder="Nome do Alimento (ex: Arroz)" required>
@@ -66,17 +39,14 @@
                 </form>
                 <div id="cardapio-list-admin">
                 </div>
+                <button id="enviar-cardapio-btn" class="btn-chic primary prominent-action">Enviar o Cardápio</button>
             </section>
 
             <section id="relatorio-section" class="section-card">
                 <h2>Relatório de Merenda do Dia</h2>
                 <div id="relatorio-contagem-merendeira">
                 </div>
-                <div class="chart-container">
-                    <canvas id="merendaChart"></canvas>
-                </div>
                 <button id="finalizar-turno-btn" class="btn-chic action-danger">Finalizar Turno</button>
-                <button id="logout-btn" class="btn-chic secondary-outline">Sair</button>
             </section>
         </section>
     </main>

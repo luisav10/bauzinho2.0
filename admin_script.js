@@ -1,30 +1,34 @@
-// admin_script.js (Placeholder - POR FAVOR, SUBSTITUA PELA SUA VERSÃO REAL QUANDO TIVER)
+// admin_script.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('login-form');
-    const cadastroForm = document.getElementById('cadastro-form');
-    const authSection = document.getElementById('auth-section');
+    // REMOVIDO: Variáveis de elementos de autenticação não são mais necessárias aqui
+    // const loginForm = document.getElementById('login-form');
+    // const cadastroForm = document.getElementById('cadastro-form');
+    // const authSection = document.getElementById('auth-section');
     const adminPanelSection = document.getElementById('admin-panel-section');
-    const turnoSelectionSection = document.getElementById('turno-selection-section');
-    const showCadastroBtn = document.getElementById('show-cadastro-btn');
-    const hideCadastroBtn = document.getElementById('hide-cadastro-btn');
-    const authMessage = document.getElementById('auth-message');
-    const logoutBtn = document.getElementById('logout-btn');
+    // REMOVIDO: Botões de mostrar/esconder cadastro não são mais necessários
+    // const showCadastroBtn = document.getElementById('show-cadastro-btn');
+    // const hideCadastroBtn = document.getElementById('hide-cadastro-btn');
+    // const authMessage = document.getElementById('auth-message');
+
+    // REMOVIDO: Botão de Logout (já não existe no HTML)
+    // const logoutBtn = document.getElementById('logout-btn');
 
     // Elementos de gerenciamento de cardápio
     const addItemForm = document.getElementById('add-item-form');
     const cardapioListAdmin = document.getElementById('cardapio-list-admin');
-    const changeTurnoBtn = document.getElementById('change-turno-btn');
     const turnosButtonsAdmin = document.querySelector('.turnos-buttons-admin');
     const currentActiveTurnoDisplay = document.getElementById('current-active-turno-display');
 
     // Elementos do relatório
     const relatorioContagemMerendeiraDiv = document.getElementById('relatorio-contagem-merendeira');
-    const merendaChartCanvas = document.getElementById('merendaChart');
-    let merendaChart; // Variável para a instância do Chart.js
+    let merendaChart;
 
-    // NOVO: Botão Finalizar Turno
+    // Botão Finalizar Turno
     const finalizarTurnoBtn = document.getElementById('finalizar-turno-btn');
+
+    // Botão Enviar Cardápio
+    const enviarCardapioBtn = document.getElementById('enviar-cardapio-btn');
 
     // --- Variáveis de Dados (persistência via localStorage) ---
     let cardapioDoDia = []; // Lista de objetos { id: ..., nome: ..., tipo: ... }
@@ -56,45 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Funções de Autenticação (SIMPLES, PARA PROTÓTIPO - NÃO SEGURO PARA PRODUÇÃO) ---
-    function saveUser(username, password) {
-        localStorage.setItem('adminUser', username);
-        localStorage.setItem('adminPass', btoa(password)); // Codifica em Base64
-    }
-
-    function checkLogin(username, password) {
-        const savedUser = localStorage.getItem('adminUser');
-        const savedPass = localStorage.getItem('adminPass');
-        return savedUser === username && savedPass === btoa(password);
-    }
-
+    // --- Funções de Autenticação (APENAS VERIFICAÇÃO DE STATUS) ---
     function isLoggedIn() {
         return localStorage.getItem('isMerendeiraLoggedIn') === 'true';
     }
 
-    function loginSuccess() {
-        localStorage.setItem('isMerendeiraLoggedIn', 'true');
-        authSection.style.display = 'none';
-        if (currentActiveTurno) { // Se já tiver um turno ativo salvo
-            turnoSelectionSection.style.display = 'none';
-            adminPanelSection.style.display = 'flex';
-            currentActiveTurnoDisplay.textContent = currentActiveTurno;
-            carregarCardapioAdmin();
-            carregarRelatorioMerendeira();
-            renderizarGrafico();
-        } else { // Se não tiver turno ativo, mostra a seleção de turno
-            turnoSelectionSection.style.display = 'block';
-            currentActiveTurnoDisplay.textContent = 'Não definido';
-        }
-    }
-
-    function logout() {
-        localStorage.removeItem('isMerendeiraLoggedIn');
-        localStorage.removeItem('bauMerendaTurnoAtivo'); // Limpa o turno ativo ao deslogar
-        localStorage.removeItem('cardapioDoDia'); // Limpa o cardápio
-        localStorage.removeItem('bauMerendaContagem'); // Limpa a contagem
-        localStorage.removeItem('bauMerendaNumConfirmacoes'); // Limpa o número de confirmações
-        window.location.reload(); // Recarrega a página para voltar à tela de login
+    function performLogout() {
+        localStorage.removeItem('isMerendeiraLoggedIn'); // Remove o status de login
+        // Não redireciona aqui, o redirecionamento será feito no event listener do botão enviarCardapioBtn
     }
 
     // --- Gerenciamento do Cardápio ---
@@ -121,20 +94,18 @@ document.addEventListener('DOMContentLoaded', () => {
             button.onclick = (event) => {
                 const itemId = event.target.dataset.id;
                 cardapioDoDia = cardapioDoDia.filter(item => item.id !== itemId);
-                // Opcional: Remover o item da contagem também, se ele for removido do cardápio.
-                // delete contagemMerenda[itemId];
                 saveAdminData();
                 carregarCardapioAdmin();
             };
         });
     }
 
-    // --- Relatório e Gráfico ---
+    // --- Relatório ---
     function carregarRelatorioMerendeira() {
         relatorioContagemMerendeiraDiv.innerHTML = '';
         relatorioContagemMerendeiraDiv.innerHTML += `<p>Total de pratos confirmados neste turno: <strong><span>${numConfirmacoes}</span></strong></p>`;
         relatorioContagemMerendeiraDiv.innerHTML += `<p>Contagem por item:</p>`;
-        
+
         if (Object.keys(contagemMerenda).length === 0) {
             relatorioContagemMerendeiraDiv.innerHTML += '<p>Nenhum item de merenda foi selecionado ainda.</p>';
             return;
@@ -150,151 +121,45 @@ document.addEventListener('DOMContentLoaded', () => {
         relatorioContagemMerendeiraDiv.appendChild(ul);
     }
 
-    function renderizarGrafico() {
-        if (merendaChart) {
-            merendaChart.destroy(); // Destrói o gráfico anterior se existir
-        }
+    // Função para zerar dados ao mudar de turno
+    function resetTurnoData() {
+        localStorage.removeItem('bauMerendaContagem');
+        localStorage.removeItem('bauMerendaNumConfirmacoes');
+        localStorage.removeItem('cardapioDoDia');
+        cardapioDoDia = [];
+        contagemMerenda = {};
+        numConfirmacoes = 0;
+        carregarCardapioAdmin();
+        carregarRelatorioMerendeira();
+        saveAdminData(); // Salva os dados zerados
+    }
 
-        const labels = cardapioDoDia.map(item => item.nome);
-        const data = cardapioDoDia.map(item => contagemMerenda[item.id] || 0);
-
-        merendaChart = new Chart(merendaChartCanvas, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Quantidade Consumida',
-                    data: data,
-                    backgroundColor: [
-                        'rgba(142, 90, 54, 0.7)', // primary-color
-                        'rgba(192, 140, 99, 0.7)', // secondary-color
-                        'rgba(124, 159, 89, 0.7)', // accent-color
-                        'rgba(184, 134, 11, 0.7)' // gold-accent
-                    ],
-                    borderColor: [
-                        'rgba(142, 90, 54, 1)',
-                        'rgba(192, 140, 99, 1)',
-                        'rgba(124, 159, 89, 1)',
-                        'rgba(184, 134, 11, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) { if (value % 1 === 0) return value; } // Apenas inteiros
-                        }
-                    }
-                },
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Consumo de Merenda por Item'
-                    }
-                }
+    // Função para marcar o botão de turno ativo
+    function markActiveTurnoButton() {
+        document.querySelectorAll('.btn-turno-admin').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.turno === currentActiveTurno) {
+                btn.classList.add('active');
             }
         });
     }
 
     // --- Event Listeners ---
 
-    // Autenticação
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const username = document.getElementById('login-usuario').value;
-        const password = document.getElementById('login-senha').value;
-
-        if (checkLogin(username, password)) {
-            authMessage.textContent = '';
-            loginSuccess();
-        } else {
-            authMessage.textContent = 'Usuário ou senha incorretos.';
-            authMessage.style.color = 'var(--error-red)';
-        }
-    });
-
-    cadastroForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const username = document.getElementById('cadastro-usuario').value;
-        const password = document.getElementById('cadastro-senha').value;
-        const confirmPass = document.getElementById('confirmar-senha').value;
-
-        if (password !== confirmPass) {
-            authMessage.textContent = 'As senhas não coincidem.';
-            authMessage.style.color = 'var(--error-red)';
-            return;
-        }
-        if (localStorage.getItem('adminUser')) {
-            authMessage.textContent = 'Já existe um usuário cadastrado. Use a tela de login.';
-            authMessage.style.color = 'var(--error-red)';
-            return;
-        }
-
-        saveUser(username, password);
-        authMessage.textContent = 'Cadastro realizado com sucesso! Faça login.';
-        authMessage.style.color = 'var(--accent-color)';
-        cadastroForm.style.display = 'none';
-        loginForm.style.display = 'flex';
-    });
-
-    showCadastroBtn.addEventListener('click', () => {
-        loginForm.style.display = 'none';
-        cadastroForm.style.display = 'flex';
-        authMessage.textContent = '';
-    });
-
-    hideCadastroBtn.addEventListener('click', () => {
-        cadastroForm.style.display = 'none';
-        loginForm.style.display = 'flex';
-        authMessage.textContent = '';
-    });
-
-    logoutBtn.addEventListener('click', logout);
-
-    // Seleção de Turno
+    // Seleção de Turno diretamente na seção de gerenciamento
     turnosButtonsAdmin.addEventListener('click', (e) => {
         if (e.target.classList.contains('btn-turno-admin')) {
-            currentActiveTurno = e.target.dataset.turno;
-            localStorage.setItem('bauMerendaTurnoAtivo', currentActiveTurno);
-            currentActiveTurnoDisplay.textContent = currentActiveTurno;
+            const novoTurno = e.target.dataset.turno;
 
-            // Remove a classe 'active' de todos e adiciona ao clicado
-            document.querySelectorAll('.btn-turno-admin').forEach(btn => btn.classList.remove('active'));
-            e.target.classList.add('active');
-
-            // Exibe o painel de administração e esconde a seleção de turno
-            turnoSelectionSection.style.display = 'none';
-            adminPanelSection.style.display = 'flex';
-            carregarCardapioAdmin();
-            carregarRelatorioMerendeira();
-            renderizarGrafico();
-            saveAdminData(); // Salva o turno ativo
+            if (novoTurno !== currentActiveTurno) { // Só reseta se o turno realmente mudar
+                resetTurnoData(); // Zera os dados do turno anterior
+                currentActiveTurno = novoTurno;
+                localStorage.setItem('bauMerendaTurnoAtivo', currentActiveTurno);
+                currentActiveTurnoDisplay.textContent = currentActiveTurno;
+                markActiveTurnoButton(); // Marca o botão de turno ativo
+                saveAdminData(); // Salva o novo turno ativo
+            }
         }
-    });
-
-    changeTurnoBtn.addEventListener('click', () => {
-        // Zera os dados e volta para a seleção de turno
-        localStorage.removeItem('bauMerendaContagem');
-        localStorage.removeItem('bauMerendaNumConfirmacoes');
-        localStorage.removeItem('cardapioDoDia'); // Também zera o cardápio
-        currentActiveTurno = ''; // Limpa o turno ativo
-        localStorage.removeItem('bauMerendaTurnoAtivo'); // Limpa o turno no localStorage
-        
-        cardapioDoDia = []; // Reinicia o cardápio em memória
-        contagemMerenda = {};
-        numConfirmacoes = 0;
-
-        adminPanelSection.style.display = 'none';
-        turnoSelectionSection.style.display = 'block';
-        currentActiveTurnoDisplay.textContent = 'Não definido';
-        carregarCardapioAdmin(); // Atualiza a lista do cardápio (vazia)
-        carregarRelatorioMerendeira(); // Atualiza o relatório (vazio)
-        if (merendaChart) merendaChart.destroy(); // Destrói o gráfico
     });
 
     // Adicionar item ao cardápio
@@ -302,6 +167,12 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const itemName = document.getElementById('item-nome').value;
         const itemType = document.getElementById('item-tipo').value;
+
+        if (!currentActiveTurno) {
+            alert('Por favor, selecione o turno que você está gerenciando antes de adicionar itens ao cardápio.');
+            return; // Impede a adição se o turno não estiver selecionado
+        }
+
         const newItem = {
             id: Date.now().toString(), // ID único baseado no timestamp
             nome: itemName,
@@ -313,25 +184,34 @@ document.addEventListener('DOMContentLoaded', () => {
         addItemForm.reset(); // Limpa o formulário
     });
 
-    // NOVO: Event listener para o botão Finalizar Turno
+    // Event listener: Enviar Cardápio (AGORA COM LOGOUT SILENCIOSO E REDIRECIONAMENTO)
+    enviarCardapioBtn.addEventListener('click', () => {
+        if (!currentActiveTurno || cardapioDoDia.length === 0) {
+            alert('Por favor, selecione um turno e adicione itens ao cardápio antes de enviá-lo.');
+            return;
+        }
+        saveAdminData(); // Garante que os dados mais recentes estejam salvos
+        performLogout(); // Realiza o logout silenciosamente
+        window.location.href = 'index.html'; // Redireciona para a página inicial
+    });
+
+    // Event listener para o botão Finalizar Turno
     finalizarTurnoBtn.addEventListener('click', () => {
-        window.location.href = 'finalizar_turno.html'; // Redireciona para a nova página
+        // Redireciona para a nova página, os dados já estão salvos e serão zerados ao mudar de turno
+        window.location.href = 'finalizar_turno.html';
     });
 
     // --- Inicialização ---
-    loadAdminData();
-    if (isLoggedIn()) {
-        loginSuccess(); // Tenta fazer login automaticamente se já estiver logado
-    } else {
-        authSection.style.display = 'block';
+    // Verifica o status de login ao carregar a página
+    if (!isLoggedIn()) {
+        window.location.href = 'login_cadastro.html'; // Redireciona se não estiver logado
+        return; // Interrompe a execução do restante do script
     }
 
-    // Se o turno ativo existir no localStorage, marcar o botão correspondente como ativo
-    if (currentActiveTurno) {
-        document.querySelectorAll('.btn-turno-admin').forEach(btn => {
-            if (btn.dataset.turno === currentActiveTurno) {
-                btn.classList.add('active');
-            }
-        });
-    }
+    loadAdminData();
+    currentActiveTurnoDisplay.textContent = currentActiveTurno || 'Não definido'; // Atualiza o display do turno
+
+    carregarCardapioAdmin();
+    carregarRelatorioMerendeira();
+    markActiveTurnoButton(); // Marca o botão de turno ativo na inicialização
 });

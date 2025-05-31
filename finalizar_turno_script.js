@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const gerarRelatorioPdfBtn = document.getElementById('gerar-relatorio-pdf-final');
     const cancelarFinalizarBtn = document.getElementById('cancelar-finalizar-btn');
     const relatorioFinalDisplay = document.getElementById('relatorio-final-display');
+    const reportTextContentDiv = document.getElementById('report-text-content'); // NOVO: Referência à div de texto
+    const finalMerendaChartCanvas = document.getElementById('finalMerendaChart'); // NOVO: Referência ao canvas do gráfico
+    let finalMerendaChartInstance; // NOVO: Para armazenar a instância do gráfico
 
     // Função para carregar e exibir o relatório antes de gerar o PDF
     function loadAndDisplayReport() {
@@ -12,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cardapioDoDia = JSON.parse(localStorage.getItem('cardapioDoDia') || '[]');
         const turnoAtivo = localStorage.getItem('bauMerendaTurnoAtivo') || 'Não definido';
 
+        // Constrói o HTML para a parte textual do relatório
         let reportHtml = `<h3>Resumo do Turno: ${turnoAtivo}</h3>`;
         reportHtml += `<p>Total de confirmações de pratos: <strong>${numConfirmacoes}</strong></p>`;
         reportHtml += `<p><strong>Detalhes dos Itens Consumidos:</strong></p>`;
@@ -29,10 +33,66 @@ document.addEventListener('DOMContentLoaded', () => {
             reportHtml += '<p>Nenhum item consumido neste turno.</p>';
         }
 
-        relatorioFinalDisplay.innerHTML = reportHtml;
+        // Insere o conteúdo textual na div específica
+        reportTextContentDiv.innerHTML = reportHtml;
+
+        // NOVO: Renderiza o gráfico após exibir o texto
+        renderFinalChart(cardapioDoDia, contagemMerenda);
     }
 
-    // Chama a função para exibir o relatório ao carregar a página
+    // NOVO: Função para renderizar o gráfico Chart.js
+    function renderFinalChart(cardapioData, consumptionData) {
+        if (finalMerendaChartInstance) {
+            finalMerendaChartInstance.destroy(); // Destroi o gráfico anterior se existir
+        }
+
+        const labels = cardapioData.map(item => item.nome);
+        const data = cardapioData.map(item => consumptionData[item.id] || 0);
+
+        finalMerendaChartInstance = new Chart(finalMerendaChartCanvas, {
+            type: 'bar', // Gráfico de barras é bom para quantidades
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Quantidade Consumida',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(142, 90, 54, 0.7)',
+                        'rgba(192, 140, 99, 0.7)',
+                        'rgba(124, 159, 89, 0.7)',
+                        'rgba(184, 134, 11, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(142, 90, 54, 1)',
+                        'rgba(192, 140, 99, 1)',
+                        'rgba(124, 159, 89, 1)',
+                        'rgba(184, 134, 11, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false, // Importante para o contêiner com altura fixa
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) { if (value % 1 === 0) return value; } // Apenas inteiros
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Consumo de Merenda por Item'
+                    }
+                }
+            }
+        });
+    }
+
+    // Chama a função para exibir o relatório e renderizar o gráfico ao carregar a página
     loadAndDisplayReport();
 
     // Evento para gerar o PDF e zerar os dados
@@ -44,17 +104,20 @@ document.addEventListener('DOMContentLoaded', () => {
         gerarRelatorioPdfBtn.style.display = 'none';
         cancelarFinalizarBtn.style.display = 'none';
 
-        // Captura o conteúdo da seção de relatório para o PDF
-        const relatorioSection = document.querySelector('.section-card'); // Captura o card inteiro
-        
-        // Adiciona um título ao PDF para melhor visualização
+        // Obtém a data e hora atuais
+        const now = new Date();
+        const dateString = now.toLocaleDateString('pt-BR');
+        const timeString = now.toLocaleTimeString('pt-BR'); // NOVO: Obtém o horário
+
+        // Adiciona um título, data e horário ao PDF
         doc.setFontSize(22);
         doc.text("Relatório de Merenda - Baú da Merenda Digital", 105, 20, null, null, "center");
         doc.setFontSize(12);
-        doc.text(`Data: ${new Date().toLocaleDateString('pt-BR')}`, 105, 30, null, null, "center");
-        doc.text(`Turno: ${localStorage.getItem('bauMerendaTurnoAtivo') || 'Não definido'}`, 105, 37, null, null, "center");
-        
-        // Espera o html2canvas renderizar o conteúdo do relatório
+        doc.text(`Data: ${dateString}`, 105, 30, null, null, "center");
+        doc.text(`Horário de Geração: ${timeString}`, 105, 37, null, null, "center"); // NOVO: Adiciona o horário
+        doc.text(`Turno: ${localStorage.getItem('bauMerendaTurnoAtivo') || 'Não definido'}`, 105, 44, null, null, "center"); // Posição ajustada
+
+        // Captura o conteúdo da seção de relatório (que agora inclui o gráfico)
         const canvas = await html2canvas(relatorioFinalDisplay, { scale: 2 }); // Aumenta a escala para melhor qualidade
         const imgData = canvas.toDataURL('image/png');
 
@@ -64,19 +127,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const imgHeight = canvas.height * imgWidth / canvas.width;
         let heightLeft = imgHeight;
         
-        let position = 50; // Posição inicial da imagem
-        
+        let position = 55; // Posição inicial da imagem, ajustada pelos novos cabeçalhos
+
         doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
+        heightLeft -= (pageHeight - position); // Ajusta heightLeft para a primeira página
         
         while (heightLeft >= 0) {
-            position = heightLeft - imgHeight;
+            position = 10; // Próximas páginas começam do topo
             doc.addPage();
             doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
         }
 
-        doc.save(`relatorio_merenda_${localStorage.getItem('bauMerendaTurnoAtivo') || 'turno'}_${new Date().toLocaleDateString('pt-BR').replace(/\//g, '-')}.pdf`);
+        // Salva o PDF com nome de arquivo que inclui data e hora
+        doc.save(`relatorio_merenda_${localStorage.getItem('bauMerendaTurnoAtivo') || 'turno'}_${dateString.replace(/\//g, '-')}_${timeString.replace(/:/g, '-')}.pdf`);
 
         alert('Relatório PDF gerado com sucesso! Os dados do turno foram zerados.');
 

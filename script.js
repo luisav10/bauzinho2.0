@@ -6,6 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentDateSpan = document.getElementById('current-date');
     const currentTimeSpan = document.getElementById('current-time');
     const activeTurnoSpan = document.getElementById('active-turno');
+    const confirmationPopup = document.getElementById('confirmation-popup'); // Referência ao pop-up
+
+    // --- Funções Auxiliares de Pop-up ---
+    function showConfirmationPopup() {
+        confirmationPopup.classList.add('show');
+        setTimeout(() => {
+            confirmationPopup.classList.remove('show');
+        }, 2000); // TEMPO ALTERADO AQUI PARA 2 SEGUNDOS
+    }
 
     // --- Funções de Data e Hora e Turno Ativo ---
     function updateDateTimeAndTurno() {
@@ -165,7 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
             numConfirmacoes++;
             saveMerendaData(contagemMerenda, numConfirmacoes);
 
-            alert('Sua escolha foi registrada com sucesso! Bom apetite!');
+            // Exibe o pop-up
+            showConfirmationPopup();
 
             // Reinicia a seleção e quantidades para a próxima vez
             document.querySelectorAll('.item-merenda-chic').forEach(card => {

@@ -1,28 +1,40 @@
 /* style.css */
 
 :root {
-    /* Cores ajustadas para um tema mais sofisticado */
-    --primary-color: #8E5A36;   /* Madeira escura/Bronze (para o chique) */
-    --secondary-color: #C08C63; /* Madeira clara/Beige (para o chique) */
-    --accent-color: #7C9F59;    /* Verde suave/Esmeralda (toque de cor, menos vibrante) */
-    --text-dark: #333333;       /* Preto suave */
-    --text-light: #F8F8F8;      /* Branco off-white */
-    --background-white: #FFFFFF; /* Fundo principal branco */
-    --border-color: #E0E0E0;    /* Cinza claro para bordas suaves */
-    --error-red: #dc3545;       /* Vermelho para erros */
+    /* Cores ajustadas para um tema mais sofisticado com a nova paleta */
+    --primary-color: #8F691D;       /* Marrom-dourado mais escuro */
+    --secondary-color: #AB792D;      /* Marrom-dourado mais claro */
+    --accent-color: #302A22;        /* Marrom-escuro quase preto, para detalhes/destaque */
+    --text-dark: #29241D;           /* Marrom muito escuro, quase preto, para textos principais */
+    --text-light: #FFFFFF;          /* Branco puro para textos sobre fundos escuros */
+    --background-white: #FFFFFF;    /* Fundo principal branco */
+    --border-color: #B5B5B5;        /* Cinza claro para bordas suaves */
+    --error-red: #D9534F;           /* Vermelho para erros (mantido para clareza) */
+    --gold-accent: #AB792D;         /* Usando o secondary-color como "gold" para uniformidade e brilho */
+    --gray-medium: #ABA9AB;         /* Cinza médio-claro para detalhes secundários */
 
-    --gold-accent: #B8860B; /* Dourado para um toque de luxo */
+    /* Variáveis de cor com o sufixo -dark e -light, se necessário */
+    --primary-color-dark: #745218;  /* Versão mais escura do primary para hover */
+    --secondary-color-dark: #906324; /* Versão mais escura do secondary para hover */
+    --accent-color-light: #5A5248;  /* Versão mais clara do accent para detalhes */
 
-    --border-radius-soft: 8px; /* Cantos levemente arredondados */
-    --box-shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    /* Variáveis de sombra e raio de borda (mantidas como estão, pois são de estrutura e não cor) */
+    --border-radius-soft: 8px;
+    --box-shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.1);
     --transition-speed-fast: 0.2s ease-in-out;
     --transition-speed-normal: 0.3s ease-in-out;
+
+    --border-radius-input: 6px;
+    --border-radius-button: 25px;
+    --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.15);
+    --shadow-deep: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 body {
-    font-family: 'Montserrat', sans-serif; /* Fonte moderna para o corpo */
-    background-color: var(--background-white);
-    color: var(--text-dark);
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--background-white); /* Fundo principal branco */
+    color: var(--text-dark); /* Texto principal marrom muito escuro */
     margin: 0;
     padding: 0;
     display: flex;
@@ -35,40 +47,40 @@ body {
 
 /* Títulos com fonte serifada elegante */
 h1, h2, h3 {
-    font-family: 'Playfair Display', serif; /* Fonte serifada para elegância */
-    color: var(--primary-color); /* Cor principal para títulos */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05); /* Sombra muito sutil */
+    font-family: 'Playfair Display', serif;
+    color: var(--primary-color); /* Marrom-dourado escuro para títulos */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 /* Cabeçalho */
 .header-modern-chic {
-    background-color: var(--primary-color); /* Cor escura elegante */
-    color: var(--text-light);
+    background-color: var(--primary-color); /* Marrom-dourado escuro */
+    color: var(--text-light); /* Texto branco */
     width: 100%;
     padding: 25px 0;
     text-align: center;
     box-shadow: var(--box-shadow-subtle);
     margin-bottom: 40px;
-    position: relative; /* Para posicionar infos */
+    position: relative;
 }
 
 .logo-chic {
-    height: 90px; /* Tamanho da logo */
+    height: 90px;
     margin-bottom: 15px;
-    border-radius: 50%; /* Se a logo permitir, um toque suave */
+    border-radius: 50%;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .header-modern-chic h1 {
     font-size: 3em;
-    color: var(--secondary-color); /* Contraste sutil */
+    color: var(--secondary-color); /* Marrom-dourado claro para contraste sutil */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     margin: 0;
 }
 
 .header-modern-chic p {
     font-size: 1.2em;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.8); /* Branco com transparência para subtítulos */
     margin-top: 10px;
 }
 
@@ -84,7 +96,7 @@ h1, h2, h3 {
     flex-direction: column;
     align-items: flex-end;
     font-size: 0.9em;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.7); /* Branco com transparência para info */
 }
 
 .info-item {
@@ -93,16 +105,16 @@ h1, h2, h3 {
 
 /* Turno mais visível na página do aluno */
 .info-item.prominent-turno {
-    font-size: 1.2em; /* Um pouco maior */
-    font-weight: 700; /* Negrito */
-    color: var(--gold-accent); /* Dourado para destaque */
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--secondary-color); /* Usando secondary como "gold" para destaque */
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 /* Conteúdo Principal */
 .main-content-modern-chic {
     width: 90%;
-    max-width: 1100px; /* Mais largura para um layout espaçoso */
+    max-width: 1100px;
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
@@ -111,14 +123,14 @@ h1, h2, h3 {
 }
 
 .section-card {
-    background-color: var(--background-white);
-    border: 1px solid var(--border-color);
+    background-color: var(--background-white); /* Fundo branco */
+    border: 1px solid var(--border-color); /* Borda cinza claro */
     border-radius: var(--border-radius-soft);
     padding: 35px;
     box-shadow: var(--box-shadow-subtle);
     text-align: center;
     flex: 1;
-    min-width: 350px; /* Garante que os cards não fiquem muito pequenos */
+    min-width: 350px;
     box-sizing: border-box;
 }
 
@@ -126,36 +138,35 @@ h1, h2, h3 {
     font-size: 2.2em;
     margin-bottom: 25px;
     padding-bottom: 15px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color); /* Borda cinza claro */
 }
 
 /* Seção de Acesso à Merendeira (abaixo do cardápio do aluno) */
 .admin-access-section {
-    flex-basis: 100%; /* Ocupa toda a largura abaixo */
+    flex-basis: 100%;
     margin-top: 20px;
     padding: 25px;
-    background-color: var(--secondary-color); /* Cor mais clara */
-    color: var(--text-dark);
+    background-color: var(--gray-medium); /* Cinza médio-claro */
+    color: var(--text-dark); /* Texto marrom muito escuro */
 }
 
 .admin-access-section p {
     font-size: 1.1em;
     margin-bottom: 15px;
-    color: var(--text-dark);
+    color: var(--text-dark); /* Texto marrom muito escuro */
 }
-
 
 /* Estilo para itens do cardápio do aluno (sem imagem) */
 .itens-grid-chic {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Itens um pouco maiores */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 25px;
     margin-bottom: 30px;
 }
 
 .item-merenda-chic {
-    background-color: var(--background-white);
-    border: 1px solid var(--border-color);
+    background-color: var(--background-white); /* Fundo branco */
+    border: 1px solid var(--border-color); /* Borda cinza claro */
     border-radius: var(--border-radius-soft);
     padding: 20px;
     text-align: center;
@@ -163,39 +174,39 @@ h1, h2, h3 {
     transition: all var(--transition-speed-normal);
     position: relative;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    display: flex; /* Para centralizar o texto verticalmente */
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 120px; /* Garante um tamanho razoável */
+    min-height: 120px;
 }
 
 .item-merenda-chic:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    border-color: var(--accent-color); /* Borda suave no hover */
+    border-color: var(--secondary-color); /* Marrom-dourado claro no hover */
 }
 
 .item-merenda-chic.selected {
-    border-color: var(--accent-color);
-    background-color: rgba(124, 159, 89, 0.08); /* Fundo muito suave de destaque */
-    box-shadow: 0 0 0 3px rgba(124, 159, 89, 0.3), var(--box-shadow-subtle); /* Borda de destaque suave */
+    border-color: var(--secondary-color); /* Marrom-dourado claro */
+    background-color: rgba(171, 121, 45, 0.08); /* Fundo suave de destaque (secondary com transparência) */
+    box-shadow: 0 0 0 3px rgba(171, 121, 45, 0.3), var(--box-shadow-subtle); /* Borda de destaque suave */
     transform: scale(1.02);
 }
 
 .item-merenda-chic p {
-    font-size: 1.3em; /* Texto maior agora que não tem imagem */
+    font-size: 1.3em;
     font-weight: 600;
-    color: var(--text-dark);
+    color: var(--text-dark); /* Texto marrom muito escuro */
     margin: 0;
 }
 
 /* Checkmark de seleção (melhorado para ser mais discreto e elegante) */
 .item-merenda-chic::after {
-    content: '✓'; /* Um simples tick unicode */
-    color: var(--accent-color);
-    background-color: var(--background-white);
-    border: 2px solid var(--accent-color);
+    content: '✓';
+    color: var(--text-light); /* Branco para o tick */
+    background-color: var(--primary-color); /* Marrom-dourado escuro para o fundo do tick */
+    border: 2px solid var(--primary-color); /* Borda marrom-dourado escuro */
     border-radius: 50%;
     position: absolute;
     top: 10px;
@@ -221,15 +232,15 @@ h1, h2, h3 {
     align-items: center;
     justify-content: center;
     margin-top: 15px;
-    background-color: var(--border-color); /* Fundo suave */
+    background-color: var(--border-color); /* Fundo cinza claro */
     padding: 5px;
-    border-radius: 20px; /* Botões mais arredondados */
+    border-radius: 20px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .quantity-btn {
-    background-color: var(--primary-color);
-    color: var(--text-light);
+    background-color: var(--primary-color); /* Marrom-dourado escuro */
+    color: var(--text-light); /* Texto branco */
     border: none;
     width: 35px;
     height: 35px;
@@ -242,15 +253,15 @@ h1, h2, h3 {
 }
 
 .quantity-btn:hover {
-    background-color: #6C422A; /* Um pouco mais escuro */
+    background-color: var(--primary-color-dark); /* Marrom-dourado escuro mais escuro */
 }
 
 .item-quantity {
-    color: var(--primary-color);
+    color: var(--text-dark); /* Texto marrom muito escuro */
     font-size: 1.4em;
     font-weight: 600;
     margin: 0 15px;
-    min-width: 20px; /* Garante que o número não "pule" */
+    min-width: 20px;
 }
 
 /* Botões Modernos e Chiques */
@@ -258,97 +269,97 @@ h1, h2, h3 {
     display: inline-block;
     padding: 15px 30px;
     border: none;
-    border-radius: var(--border-radius-soft);
+    border-radius: var(--border-radius-button); /* Usando 25px */
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 1.1em;
     text-transform: uppercase;
     transition: all var(--transition-speed-normal);
-    box-shadow: var(--box-shadow-subtle);
-    text-decoration: none; /* Para links */
-    margin: 10px auto; /* Para espaçamento */
+    box-shadow: var(--shadow-soft); /* Usando shadow-soft */
+    text-decoration: none;
+    margin: 10px auto;
 }
 
 .btn-chic.primary {
-    background-color: var(--primary-color);
-    color: var(--text-light);
+    background-color: var(--primary-color); /* Marrom-dourado escuro */
+    color: var(--text-light); /* Texto branco */
 }
 
 .btn-chic.primary:hover {
-    background-color: #6C422A;
+    background-color: var(--primary-color-dark); /* Marrom-dourado escuro mais escuro */
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-medium);
 }
 
 .btn-chic.primary:disabled {
-    background-color: #cccccc;
+    background-color: var(--border-color); /* Cinza claro */
     cursor: not-allowed;
     box-shadow: none;
+    color: var(--gray-medium); /* Texto cinza */
 }
 
 .btn-chic.secondary {
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
+    background-color: var(--secondary-color); /* Marrom-dourado claro */
+    color: var(--text-dark); /* Texto marrom muito escuro */
 }
 
 .btn-chic.secondary:hover {
-    background-color: #A6724E;
-    color: var(--text-light);
+    background-color: var(--secondary-color-dark); /* Marrom-dourado claro mais escuro */
+    color: var(--text-light); /* Texto branco */
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-medium);
 }
 
 .btn-chic.secondary-outline {
     background-color: transparent;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
+    color: var(--primary-color); /* Marrom-dourado escuro */
+    border: 2px solid var(--primary-color); /* Marrom-dourado escuro */
 }
 
 .btn-chic.secondary-outline:hover {
-    background-color: var(--primary-color);
-    color: var(--text-light);
+    background-color: var(--primary-color); /* Marrom-dourado escuro */
+    color: var(--text-light); /* Texto branco */
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-medium);
 }
 
 /* Novo estilo para o botão "Voltar para Alunos" para mais visibilidade */
 .btn-chic.prominent-secondary {
-    background-color: var(--gold-accent); /* Dourado para destaque */
-    color: var(--text-light);
-    border: 2px solid var(--gold-accent);
-    padding: 15px 35px; /* Um pouco maior */
-    font-size: 1.2em; /* Fonte um pouco maior */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Sombra mais forte */
+    background-color: var(--secondary-color); /* Marrom-dourado claro (como seu "gold-accent" agora) */
+    color: var(--text-light); /* Texto branco */
+    border: 2px solid var(--secondary-color);
+    padding: 15px 35px;
+    font-size: 1.2em;
+    box-shadow: var(--shadow-deep);
 }
 
 .btn-chic.prominent-secondary:hover {
-    background-color: #DAA520; /* Dourado mais claro no hover */
-    border-color: #DAA520;
-    transform: translateY(-3px); /* Mais impacto no hover */
+    background-color: var(--secondary-color-dark); /* Marrom-dourado claro mais escuro */
+    border-color: var(--secondary-color-dark);
+    transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
-
 .btn-chic.action { /* Para botões de ação do admin como "Gerar PDF" */
-    background-color: var(--accent-color);
-    color: var(--text-light);
+    background-color: var(--accent-color); /* Marrom-escuro quase preto */
+    color: var(--text-light); /* Texto branco */
     margin-top: 25px;
 }
 
 .btn-chic.action:hover {
-    background-color: #618043;
+    background-color: var(--accent-color-light); /* Marrom-escuro mais claro */
     transform: translateY(-2px);
 }
 
 .btn-chic.action-danger { /* Para "Zerar Dados" */
-    background-color: var(--error-red);
-    color: var(--text-light);
-    margin-top: 15px; /* Espaçamento entre os botões de ação */
+    background-color: var(--error-red); /* Vermelho */
+    color: var(--text-light); /* Texto branco */
+    margin-top: 15px;
 }
 
 .btn-chic.action-danger:hover {
-    background-color: #bb2d3b;
+    background-color: #bb2d3b; /* Vermelho um pouco mais escuro */
     transform: translateY(-2px);
 }
 
@@ -357,36 +368,59 @@ h1, h2, h3 {
     padding: 8px 15px;
     font-size: 0.9em;
     margin: 0;
-    align-self: flex-end; /* Alinha o botão à direita no header do card */
+    align-self: flex-end;
 }
 
 .header-cardapio-admin {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    gap: 15px;
     margin-bottom: 25px;
     padding-bottom: 15px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color); /* Borda cinza claro */
 }
 
 .header-cardapio-admin h2 {
     margin: 0;
-    border-bottom: none; /* Remove a borda duplicada do h2 */
+    border-bottom: none;
     padding-bottom: 0;
+    color: var(--primary-color); /* Marrom-dourado escuro para títulos */
+    width: 100%;
+    text-align: center;
 }
 
-
-/* Estilos de Autenticação (admin.html) */
+/* Estilos de Autenticação (login_cadastro.html) */
 .auth-card {
     max-width: 480px;
     margin: 50px auto;
+    padding: 30px;
+    box-shadow: var(--shadow-deep);
+    border-radius: var(--border-radius-soft);
+    background-color: var(--background-white); /* Fundo branco */
+    text-align: center;
 }
 
+.auth-card h2 {
+    color: var(--primary-color); /* Marrom-dourado escuro */
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+
+.auth-card .small-text {
+    font-size: 0.9em;
+    color: var(--text-dark); /* Texto marrom muito escuro */
+    margin-bottom: 15px;
+}
+
+/* Estilos para os formulários de autenticação */
 .auth-form {
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    margin-top: 25px;
+    gap: 15px;
+    margin-top: 20px;
+    align-items: center; /* Mantido para centralizar os elementos como antes */
 }
 
 .auth-form input[type="text"],
@@ -394,36 +428,39 @@ h1, h2, h3 {
 .item-form input[type="text"],
 .item-form select {
     padding: 14px 18px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-soft);
+    border: 1px solid var(--border-color); /* Borda cinza claro */
+    border-radius: var(--border-radius-input);
     font-size: 1.05em;
-    background-color: var(--background-white);
-    color: var(--text-dark);
+    background-color: var(--background-white); /* Fundo branco */
+    color: var(--text-dark); /* Texto marrom muito escuro */
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
     transition: border-color var(--transition-speed-fast), box-shadow var(--transition-speed-fast);
     width: calc(100% - 36px);
     box-sizing: border-box;
+    max-width: 300px; /* Mantido para alinhar com password-hint */
 }
 
 .auth-form input[type="text"]:focus,
 .auth-form input[type="password"]:focus,
 .item-form input[type="text"]:focus,
 .item-form select:focus {
-    border-color: var(--gold-accent); /* Dourado no foco */
+    border-color: var(--secondary-color); /* Marrom-dourado claro no foco */
     outline: none;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 3px rgba(184, 134, 11, 0.2); /* Sombra dourada suave */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 3px rgba(171, 121, 45, 0.2); /* Sombra secundária suave */
 }
 
 #auth-message {
-    color: var(--error-red);
+    color: var(--error-red); /* Mantido vermelho para erros */
     font-weight: 600;
     margin-top: 15px;
     font-size: 0.95em;
+    padding: 10px;
+    border-radius: var(--border-radius-soft);
 }
 
 /* Estilos para o Gerenciamento de Cardápio e Turno */
 #admin-panel-section {
-    width: 100%; /* Garante que o painel ocupe a largura total disponível */
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
@@ -434,7 +471,7 @@ h1, h2, h3 {
 #turno-selection-section {
     width: 100%;
     max-width: 600px;
-    margin: 50px auto; /* Centraliza verticalmente ao iniciar */
+    margin: 50px auto;
 }
 
 .turno-gerenciamento-section {
@@ -466,12 +503,12 @@ h1, h2, h3 {
     text-align: left;
     margin-top: 20px;
     padding-top: 20px;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color); /* Borda cinza claro */
 }
 
 .cardapio-item-admin {
     background-color: #F8F8F8; /* Um fundo mais claro */
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color); /* Borda cinza claro */
     border-radius: var(--border-radius-soft) / 2;
     padding: 12px 20px;
     display: flex;
@@ -488,14 +525,14 @@ h1, h2, h3 {
 
 .cardapio-item-admin .item-type {
     font-size: 0.85em;
-    color: var(--primary-color);
+    color: var(--primary-color); /* Marrom-dourado escuro */
     font-style: italic;
     margin-left: 10px;
 }
 
 .cardapio-item-admin .delete-btn {
-    background-color: var(--error-red);
-    color: white;
+    background-color: var(--error-red); /* Vermelho */
+    color: var(--text-light); /* Texto branco */
     border: none;
     border-radius: 5px;
     padding: 8px 15px;
@@ -507,26 +544,26 @@ h1, h2, h3 {
 }
 
 .cardapio-item-admin .delete-btn:hover {
-    background-color: #c82333;
+    background-color: #c82333; /* Vermelho mais escuro */
 }
 
 /* Estilo do relatório da merendeira */
 #relatorio-contagem-merendeira p {
     font-size: 1.1em;
     margin: 10px 0;
-    color: var(--text-dark);
+    color: var(--text-dark); /* Texto marrom muito escuro */
     font-weight: 500;
 }
 
 #relatorio-contagem-merendeira strong {
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--primary-color); /* Marrom-dourado escuro */
 }
 
 #relatorio-contagem-merendeira span {
-    font-family: 'Playfair Display', serif; /* Mantendo a fonte de título aqui */
+    font-family: 'Playfair Display', serif;
     font-size: 1.1em;
-    color: var(--gold-accent); /* Dourado para os números */
+    color: var(--secondary-color); /* Marrom-dourado claro para os números */
     margin-left: 8px;
     font-weight: 700;
 }
@@ -537,8 +574,8 @@ h1, h2, h3 {
     max-width: 600px;
     margin: 30px auto;
     padding: 20px;
-    background-color: #FDFDFD;
-    border: 1px solid var(--border-color);
+    background-color: var(--background-white); /* Fundo branco */
+    border: 1px solid var(--border-color); /* Borda cinza claro */
     border-radius: var(--border-radius-soft);
     box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.05);
 }
@@ -552,10 +589,10 @@ h1, h2, h3 {
 }
 
 .btn-turno-radio {
-    background-color: var(--background-white);
-    color: var(--primary-color);
+    background-color: var(--background-white); /* Fundo branco */
+    color: var(--primary-color); /* Marrom-dourado escuro */
     padding: 12px 25px;
-    border: 2px solid var(--border-color);
+    border: 2px solid var(--border-color); /* Borda cinza claro */
     border-radius: var(--border-radius-soft);
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
@@ -565,26 +602,25 @@ h1, h2, h3 {
 }
 
 .btn-turno-radio:hover {
-    border-color: var(--secondary-color);
+    border-color: var(--secondary-color); /* Marrom-dourado claro */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .btn-turno-radio.selected {
-    background-color: var(--secondary-color); /* Fundo preenchido quando selecionado */
-    color: var(--text-dark); /* Texto escuro para contraste */
-    border-color: var(--gold-accent); /* Borda dourada para destaque */
-    box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra de destaque */
+    background-color: var(--secondary-color); /* Fundo preenchido com marrom-dourado claro */
+    color: var(--text-dark); /* Texto marrom muito escuro para contraste */
+    border-color: var(--primary-color); /* Borda marrom-dourado escuro para destaque */
+    box-shadow: 0 0 0 3px rgba(143, 105, 29, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra de destaque */
     transform: translateY(-2px);
 }
-
 
 /* Rodapé */
 .footer-modern-chic {
     width: 100%;
     padding: 20px 0;
     text-align: center;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
+    background-color: var(--primary-color); /* Marrom-dourado escuro */
+    color: var(--secondary-color); /* Marrom-dourado claro */
     font-size: 0.9em;
     margin-top: auto;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
@@ -616,7 +652,7 @@ h1, h2, h3 {
         gap: 15px;
     }
     .item-merenda-chic {
-        min-height: 100px; /* Reduz a altura mínima para telas menores */
+        min-height: 100px;
     }
     .item-merenda-chic p {
         font-size: 1.1em;
@@ -646,7 +682,7 @@ h1, h2, h3 {
         gap: 10px;
     }
     .header-cardapio-admin h2 {
-        width: 100%; /* Ocupa a largura total */
+        width: 100%;
         text-align: center;
     }
     .btn-chic.small-btn {
@@ -654,3 +690,110 @@ h1, h2, h3 {
         text-align: center;
     }
 }
+
+/* Garante que o cabeçalho do cardápio permita que os elementos fiquem em colunas */
+.header-cardapio-admin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.header-cardapio-admin h2 {
+    margin-bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: var(--primary-color); /* Marrom-dourado escuro */
+}
+
+/* Estilos para o parágrafo do turno */
+.header-cardapio-admin p {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.05em;
+    color: var(--text-dark); /* Marrom muito escuro para o texto */
+    width: 100%;
+    text-align: center;
+}
+
+/* Estilos para os botões de turno dentro do admin */
+.turnos-buttons-admin {
+    display: flex;
+    gap: 10px;
+    margin-top: 0;
+    width: 100%;
+    justify-content: center;
+}
+
+/* Estilos para os botões individuais de turno */
+.btn-turno-admin {
+    background-color: var(--secondary-color); /* Marrom-dourado claro */
+    color: var(--text-light); /* Texto branco */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-turno-admin:hover {
+    background-color: var(--secondary-color-dark); /* Marrom-dourado claro mais escuro */
+}
+
+.btn-turno-admin.active {
+    background-color: var(--primary-color); /* Marrom-dourado escuro para o botão ativo */
+    border: 2px solid var(--accent-color); /* Borda marrom-escuro quase preto para destaque */
+    color: var(--text-light); /* Texto branco */
+}
+
+/* Estilos para a dica de senha */
+.password-hint {
+    display: block;
+    max-width: 300px;
+    width: calc(100% - 20px);
+    margin-top: -5px;
+    margin-bottom: 10px;
+    color: var(--gray-medium); /* Cinza médio-claro para a dica */
+    font-size: 0.85em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+/* Certifique-se de que seus inputs tenham propriedades semelhantes para alinhamento */
+.auth-form input[type="text"],
+.auth-form input[type="password"] {
+    width: calc(100% - 20px);
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Pop-up de Confirmação */
+.popup-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--primary-color); /* Marrom-dourado escuro para o pop-up */
+    color: var(--text-light); /* Texto branco */
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    max-width: 80%;
+}
+
+.popup-message.show {
+    opacity: 1;
+    visibility: visible;
+}co
