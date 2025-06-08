@@ -5,10 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baú da Merenda Digital - Seu Prato</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="header-modern-chic">
+        <div class="admin-access-header">
+            <a href="login_cadastro.html" class="btn-chic small-btn secondary">
+                <i class="fas fa-user"></i> Painel da Merendeira
+            </a>
+        </div>
+
         <img src="logo_bau_merenda_clean.png" alt="Logo Baú da Merenda" class="logo-chic">
         <h1>Baú da Merenda Digital</h1>
         <p>A experiência gourmet da sua merenda escolar.</p>
@@ -20,16 +27,11 @@
 
     <main class="main-content-modern-chic">
         <section class="cardapio-hoje-chic section-card">
-            <p class="turno-aluno-display">Turno Atual: <strong id="active-turno">Não definido</strong></p>
+            <p class="turno-aluno-display">Turno: <strong id="active-turno">Não definido</strong></p>
             <h2>Monte seu Prato</h2>
             <div id="cardapio-itens-aluno" class="itens-grid-chic">
             </div>
             <button id="confirmar-escolha-aluno" class="btn-chic primary">Confirmar Minha Escolha</button>
-        </section>
-
-        <section class="admin-access-section section-card">
-            <p>Acesso exclusivo para a equipe de merendeiras:</p>
-            <a href="login_cadastro.html" class="btn-chic secondary">Painel da Merendeira</a>
         </section>
 
         <div id="confirmation-popup" class="popup-message">

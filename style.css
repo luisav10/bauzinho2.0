@@ -15,7 +15,7 @@
     --gray-medium: #CCCCCC; /* Cinza médio para bordas ou elementos que precisam de um pouco mais de presença */
     --gray-dark: #BBBBBB; /* Um cinza um pouco mais escuro para fundos secundários */
 
-    /* NOVO: Cor de fundo para as divs principais do index, um off-white cremoso */
+    /* Cor de fundo para as divs principais do index, um off-white cremoso */
     --section-background-color: #FDF9F6; /* Um off-white quente, puxado para o bege claro */
 
     /* Cores para Ações Específicas (VERMELHO e VERDE) */
@@ -27,7 +27,7 @@
     --secondary-color-dark: #815c2a; /* Usando 815c2a como versão mais escura do secondary para hover */
     --accent-color-light: #A08361; /* Versão mais clara do accent para detalhes */
 
-    /* Variáveis de sombra e raio de borda (mantidas como estão, pois são de estrutura e não cor) */
+    /* Variáveis de sombra e raio de borda */
     --border-radius-soft: 8px;
     --box-shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08); 
     --transition-speed-fast: 0.2s ease-in-out;
@@ -38,6 +38,9 @@
     --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.08); 
     --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.12); 
     --shadow-deep: 0 10px 20px rgba(0, 0, 0, 0.18); 
+
+    /* Fonte para números simples */
+    --simple-number-font: 'Arial', sans-serif; /* Uma fonte simples e limpa */
 }
 
 body {
@@ -70,8 +73,68 @@ h1, h2, h3 {
     text-align: center;
     box-shadow: var(--box-shadow-subtle);
     margin-bottom: 40px;
-    position: relative;
+    position: relative; /* ESSENCIAL para posicionar o botão absolutamente */
+    padding-left: 120px; /* Mantém espaço para o botão esquerdo */
+    padding-right: 120px; /* Adiciona espaço para a info direita */
+    box-sizing: border-box; /* Garante que padding não aumente a largura total */
 }
+
+/* Estilo para o botão no cabeçalho (admin access) */
+.admin-access-header {
+    position: absolute;
+    top: 20px; /* Alinha com o topo do cabeçalho */
+    left: 20px; /* Alinha com a esquerda do cabeçalho */
+    z-index: 10; /* Garante que ele fique acima de outros elementos se houver sobreposição */
+}
+
+/* Ajuste o botão para ser menor */
+.admin-access-header .btn-chic {
+    padding: 8px 15px; /* Diminui o padding para um botão menor */
+    font-size: 0.9em; /* Diminui o tamanho da fonte */
+    border-radius: 20px; /* Deixa as bordas mais arredondadas para um visual "small" */
+    box-shadow: var(--shadow-soft); /* Sombra suave */
+    text-transform: none; /* Remove uppercase para deixar o texto mais limpo em botão pequeno */
+}
+
+.admin-access-header .btn-chic.secondary {
+    background-color: var(--secondary-color); /* Dourado/Bronze claro */
+    color: var(--text-dark); /* Texto marrom escuro */
+}
+
+.admin-access-header .btn-chic.secondary:hover {
+    background-color: var(--secondary-color-dark);
+    color: var(--text-light);
+    transform: translateY(-1px); /* Menos deslocamento no hover para botão pequeno */
+    box-shadow: var(--shadow-medium);
+}
+
+/* Estilo para o botão de voltar */
+.back-to-home-btn {
+    position: absolute; /* Posição absoluta dentro do header */
+    top: 20px; /* Distância do topo */
+    left: 20px; /* Distância da esquerda */
+    width: 45px; /* LARGURA REDUZIDA */
+    height: 45px; /* ALTURA REDUZIDA */
+    border-radius: 50%; /* Torna o botão redondo */
+    background-color: var(--secondary-color); /* Cor do título "Painel da Merendeira" */
+    color: var(--text-dark); /* Cor da seta (texto escuro) */
+    display: flex; /* Para centralizar o ícone */
+    align-items: center; /* Centraliza verticalmente o ícone */
+    justify-content: center; /* Centraliza horizontalmente o ícone */
+    font-size: 1.3em; /* TAMANHO DO ÍCONE REDUZIDO */
+    text-decoration: none; /* Remove sublinhado padrão de links */
+    box-shadow: var(--shadow-soft); /* Sombra suave */
+    transition: all var(--transition-speed-fast); /* Transição suave para hover */
+    z-index: 10; /* Garante que fique acima de outros elementos se houver sobreposição */
+}
+
+.back-to-home-btn:hover {
+    background-color: var(--secondary-color-dark); /* Cor mais escura no hover */
+    color: var(--text-light); /* Texto branco no hover */
+    transform: translateY(-2px); /* Efeito de "levantar" no hover */
+    box-shadow: var(--shadow-medium); /* Sombra mais pronunciada no hover */
+}
+
 
 .logo-chic {
     height: 90px;
@@ -100,12 +163,13 @@ h1, h2, h3 {
 .header-info {
     position: absolute;
     top: 20px;
-    right: 30px;
+    right: 30px; /* Mantém a posição à direita */
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     font-size: 0.9em;
     color: rgba(255, 255, 255, 0.85); /* Branco com transparência para info, mas mais opaco */
+    z-index: 10; /* Garante que fique acima de outros elementos, se houver sobreposição */
 }
 
 .info-item {
@@ -123,48 +187,42 @@ h1, h2, h3 {
 /* Conteúdo Principal */
 .main-content-modern-chic {
     width: 90%;
-    max-width: 1100px;
+    max-width: 1200px;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column; /* Empilha os itens verticalmente */
     gap: 30px;
     justify-content: center;
     margin-bottom: 50px;
+    padding: 0 20px; 
 }
 
 .section-card {
-    background-color: var(--section-background-color); /* NOVO: Cor de fundo para o card "Monte o seu prato" */
+    background-color: var(--section-background-color); /* Cor de fundo para o card "Monte o seu prato" */
     border: 1px solid var(--border-color); /* Borda cinza muito claro */
     border-radius: var(--border-radius-soft);
     padding: 35px;
     box-shadow: var(--box-shadow-subtle);
     text-align: center;
-    flex: 1;
-    min-width: 350px;
+    width: 100%; /* Garante que ocupe a largura total disponível */
+    max-width: 100%; /* Garante que ocupe a largura máxima disponível */
     box-sizing: border-box;
 }
 
+/* Centraliza e limita a largura da seção de autenticação e da seção de finalizar turno */
+.section-card.auth-card,
+.section-card { /* Adicionado para afetar a seção de finalizar turno também */
+    max-width: 450px; /* Largura máxima para a caixa */
+    margin: 40px auto; /* Centraliza a caixa na página */
+    padding: 40px; /* Mais padding para um visual mais "aberto" */
+}
+
+
 .section-card h2 {
     font-size: 2.2em;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--border-color); /* Borda cinza muito claro */
-    color: var(--primary-color); /* Títulos dentro do card em marrom escuro */
-}
-
-/* Seção de Acesso à Merendeira (abaixo do cardápio do aluno) */
-.admin-access-section {
-    flex-basis: 100%;
-    margin-top: 20px;
-    padding: 25px;
-    background-color: var(--gray-dark); /* Um cinza um pouco mais escuro para contraste */
-    color: var(--text-light); /* Texto branco sobre fundo escuro */
-    border-radius: var(--border-radius-soft);
-}
-
-.admin-access-section p {
-    font-size: 1.1em;
-    margin-bottom: 15px;
-    color: var(--text-light); /* Texto branco */
+    margin-bottom: 25px; 
+    padding-bottom: 0; 
+    border-bottom: none; 
+    color: var(--primary-color); 
 }
 
 /* Estilo para itens do cardápio do aluno (sem imagem) */
@@ -212,7 +270,7 @@ h1, h2, h3 {
     margin: 0;
 }
 
-/* Checkmark de seleção (melhorado para ser mais discreto e elegante) */
+/* Checkmark de seleção */
 .item-merenda-chic::after {
     content: '✓';
     color: var(--text-light); /* Branco para o tick */
@@ -335,6 +393,27 @@ h1, h2, h3 {
     box-shadow: var(--shadow-medium);
 }
 
+/* Botão de texto para "Esqueci minha senha" */
+.btn-chic.text-link {
+    background: none;
+    border: none;
+    color: var(--accent-color); /* Cor de destaque para links */
+    font-size: 0.95em;
+    text-transform: none; /* Não é uppercase */
+    text-decoration: underline; /* Sublinhado para indicar que é um link */
+    padding: 5px 10px; /* Padding menor para parecer mais com um link */
+    box-shadow: none;
+    margin-top: 5px; /* Margem ajustada */
+}
+
+.btn-chic.text-link:hover {
+    color: var(--primary-color); /* Mudar para a cor principal no hover */
+    text-decoration: none; /* Remover sublinhado no hover */
+    background: none;
+    transform: none; /* Sem transformação no hover para links */
+    box-shadow: none;
+}
+
 /* Novo estilo para o botão "Voltar para Alunos" para mais visibilidade */
 .btn-chic.prominent-secondary {
     background-color: var(--secondary-color); /* Dourado/Bronze claro para destaque */
@@ -349,7 +428,7 @@ h1, h2, h3 {
     background-color: var(--secondary-color-dark); /* Marrom 815c2a */
     border-color: var(--secondary-color-dark);
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); 
+    box-shadow: 0 88px 20px rgba(0, 0, 0, 0.25); 
 }
 
 .btn-chic.action { /* Para botões de ação do admin como "Gerar PDF" */
@@ -400,80 +479,116 @@ h1, h2, h3 {
     align-items: center;
     gap: 15px;
     margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--border-color); /* Borda cinza muito claro */
+    padding-bottom: 0; 
+    border-bottom: none; 
 }
 
 .header-cardapio-admin h2 {
     margin: 0;
     border-bottom: none;
     padding-bottom: 0;
-    color: var(--primary-color); /* Marrom escuro para títulos */
+    color: var(--primary-color); 
     width: 100%;
     text-align: center;
 }
 
-/* Estilos de Autenticação (login_cadastro.html) */
-.auth-card {
-    max-width: 480px;
-    margin: 50px auto;
-    padding: 30px;
-    box-shadow: var(--shadow-deep);
+/* Classe genérica para caixinhas de informação */
+.info-box {
+    background-color: var(--background-white); /* Fundo branco para se destacar no card */
+    border: 1px solid var(--border-color); /* Borda suave */
+    border-radius: var(--border-radius-soft); /* Bordas arredondadas */
+    padding: 20px; /* Espaçamento interno */
+    margin-top: 20px; /* Espaçamento superior */
+    margin-bottom: 25px; /* Espaçamento inferior para separar blocos */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra sutil para profundidade */
+    width: 100%; /* Ocupa a largura total disponível */
+    box-sizing: border-box; /* Garante que padding não aumente a largura total */
+    text-align: center; /* Centraliza o conteúdo da caixa por padrão */
+}
+
+/* Relatório Final do Turno */
+#relatorio-final-display {
+    text-align: left; /* Mantém o alinhamento esquerdo do texto do relatório */
+    margin-bottom: 30px; /* Garante espaçamento após o relatório */
+    padding: 25px; /* Aumenta um pouco o padding para o conteúdo */
+}
+
+#report-text-content p {
+    font-size: 1.05em;
+    margin-bottom: 10px; /* Espaçamento entre os parágrafos */
+    line-height: 1.5;
+    color: var(--text-dark);
+}
+
+#report-text-content p strong {
+    color: var(--primary-color);
+}
+
+/* Container do gráfico no relatório final */
+.chart-container-final {
+    width: 100%; /* Ocupa a largura total da div pai */
+    height: 280px; /* Aumenta a altura para o gráfico ser mais visível */
+    margin-top: 25px; /* Mais espaço acima do gráfico */
+    background-color: var(--gray-light); /* Fundo claro para o gráfico */
     border-radius: var(--border-radius-soft);
-    background-color: var(--section-background-color); /* NOVO: Cor de fundo para o card de autenticação */
-    text-align: center;
+    padding: 15px; /* Adiciona um pouco de padding interno */
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.03); /* Sombra interna sutil */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.auth-card h2 {
-    color: var(--primary-color); /* Marrom escuro */
-    margin-bottom: 20px;
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-}
 
-.auth-card .small-text {
-    font-size: 0.9em;
-    color: var(--text-dark); /* Texto marrom muito escuro */
+.info-box p {
+    font-size: 1.05em; /* Tamanho da fonte para o texto comum dentro da caixa */
+    margin-top: 0;
     margin-bottom: 15px;
+    color: var(--text-dark);
 }
 
-/* Estilos para os formulários de autenticação */
-.auth-form {
+.info-box strong {
+    color: var(--primary-color);
+}
+
+/* Estilos para o formulário de adicionar item dentro da sua caixa */
+.item-form-content { 
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-top: 20px;
+    width: 100%; 
     align-items: center; 
 }
 
+/* Alterações nos inputs para alinhamento e largura consistente */
+/* Também aplicável aos inputs do formulário de autenticação */
 .auth-form input[type="text"],
 .auth-form input[type="password"],
-.item-form input[type="text"],
-.item-form select {
+.item-form-content input[type="text"], 
+.item-form-content select { 
     padding: 14px 18px;
-    border: 1px solid var(--border-color); /* Borda cinza muito claro */
+    border: 1px solid var(--border-color); 
     border-radius: var(--border-radius-input);
     font-size: 1.05em;
-    background-color: var(--background-white); /* Fundo branco */
-    color: var(--text-dark); /* Texto marrom muito escuro */
+    background-color: var(--background-white); 
+    color: var(--text-dark); 
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04); 
     transition: border-color var(--transition-speed-fast), box-shadow var(--transition-speed-fast);
-    width: calc(100% - 36px);
+    width: 100%; 
+    max-width: 350px; 
     box-sizing: border-box;
-    max-width: 300px; 
 }
 
 .auth-form input[type="text"]:focus,
 .auth-form input[type="password"]:focus,
-.item-form input[type="text"]:focus,
-.item-form select:focus {
-    border-color: var(--accent-color); /* Marrom-dourado intermediário no foco */
+.item-form-content input[type="text"]:focus, 
+.item-form-content select:focus { 
+    border-color: var(--accent-color); 
     outline: none;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 3px rgba(135, 107, 71, 0.2); 
 }
 
 #auth-message {
-    color: var(--action-danger); /* Vermelho para erros */
+    color: var(--action-danger); 
     font-weight: 600;
     margin-top: 15px;
     font-size: 0.95em;
@@ -483,14 +598,14 @@ h1, h2, h3 {
 
 /* Estilos para o Gerenciamento de Cardápio e Turno */
 #admin-panel-section {
-    width: 100%;
+    width: 100%; 
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
     justify-content: center;
+    align-items: flex-start;
 }
 
-/* Seção de seleção de turno (mesmo estilo do card, mas para o início) */
 #turno-selection-section {
     width: 100%;
     max-width: 600px;
@@ -512,11 +627,14 @@ h1, h2, h3 {
     min-width: 400px;
 }
 
-.item-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 30px;
+/* Remover propriedades de caixinha de classes que não devem mais ter,
+    agora que a responsabilidade é da `.info-box` */
+.item-form, .turnos-buttons-admin { 
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
 }
 
 #cardapio-list-admin {
@@ -527,11 +645,12 @@ h1, h2, h3 {
     margin-top: 20px;
     padding-top: 20px;
     border-top: 1px solid var(--border-color); /* Borda cinza muito claro */
+    text-align: center; /* Adicionado para centralizar o texto */
 }
 
 .cardapio-item-admin {
-    background-color: var(--gray-light); /* Cinza muito claro */
-    border: 1px solid var(--border-color); /* Borda cinza muito claro */
+    background-color: var(--gray-light); 
+    border: 1px solid var(--border-color); 
     border-radius: calc(var(--border-radius-soft) / 2);
     padding: 12px 20px;
     display: flex;
@@ -549,14 +668,14 @@ h1, h2, h3 {
 
 .cardapio-item-admin .item-type {
     font-size: 0.85em;
-    color: var(--primary-color); /* Marrom escuro */
+    color: var(--primary-color); 
     font-style: italic;
     margin-left: 10px;
 }
 
 .cardapio-item-admin .delete-btn {
-    background-color: var(--action-danger); /* Vermelho */
-    color: var(--text-light); /* Texto branco */
+    background-color: var(--action-danger); 
+    color: var(--text-light); 
     border: none;
     border-radius: 5px;
     padding: 8px 15px;
@@ -564,33 +683,44 @@ h1, h2, h3 {
     font-size: 0.9em;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    transition: background-color var(--transition-speed-fast);
+    transition: background-color 0.3s ease, border-color 0.3s ease; 
 }
 
 .cardapio-item-admin .delete-btn:hover {
-    background-color: #c82333; /* Vermelho mais escuro */
+    background-color: #c82333; 
 }
 
-/* Estilo do relatório da merendeira */
-#relatorio-contagem-merendeira p {
+/* Estilo do relatório da merendeira (agora usa .info-box também) */
+#relatorio-contagem-merendeira {
     font-size: 1.1em;
-    margin: 10px 0;
-    color: var(--text-dark); /* Texto marrom muito escuro */
+    color: var(--text-dark); 
     font-weight: 500;
+    text-align: left; /* Mantém o alinhamento esquerdo específico para o relatório */
+    margin-top: 20px; /* Mantém o espaçamento superior */
+    margin-bottom: 20px; /* Garante espaçamento para o botão */
 }
 
 #relatorio-contagem-merendeira strong {
     font-weight: 700;
-    color: var(--primary-color); /* Marrom escuro */
+    color: var(--primary-color); 
 }
 
 #relatorio-contagem-merendeira span {
     font-family: 'Playfair Display', serif;
-    font-size: 1.1em;
-    color: var(--secondary-color); /* Dourado/Bronze claro para os números */
+    font-size: 1.1em; 
+    color: var(--secondary-color); 
     margin-left: 8px;
     font-weight: 700;
 }
+
+/* Para os números no relatório */
+#relatorio-contagem-merendeira .report-number {
+    font-family: var(--simple-number-font); /* Aplica a nova fonte */
+    font-size: 1.2em; /* Pode ajustar o tamanho se quiser um pouco maior */
+    color: var(--primary-color); /* Mantenha a cor para consistência com o strong */
+    font-weight: 700; /* Garante que os números se destaquem */
+}
+
 
 /* Gráfico */
 .chart-container {
@@ -598,8 +728,8 @@ h1, h2, h3 {
     max-width: 600px;
     margin: 30px auto;
     padding: 20px;
-    background-color: var(--background-white); /* Fundo branco */
-    border: 1px solid var(--border-color); /* Borda cinza muito claro */
+    background-color: var(--background-white); 
+    border: 1px solid var(--border-color); 
     border-radius: var(--border-radius-soft);
     box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.05);
 }
@@ -613,10 +743,10 @@ h1, h2, h3 {
 }
 
 .btn-turno-radio {
-    background-color: var(--background-white); /* Fundo branco */
-    color: var(--primary-color); /* Marrom escuro */
+    background-color: var(--background-white); 
+    color: var(--primary-color); 
     padding: 12px 25px;
-    border: 2px solid var(--gray-medium); /* Borda cinza médio */
+    border: 2px solid var(--gray-medium); 
     border-radius: var(--border-radius-soft);
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
@@ -626,15 +756,15 @@ h1, h2, h3 {
 }
 
 .btn-turno-radio:hover {
-    border-color: var(--accent-color); /* Marrom-dourado intermediário */
+    border-color: var(--accent-color); 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12); 
 }
 
 .btn-turno-radio.selected {
-    background-color: var(--secondary-color); /* Fundo preenchido com Dourado/Bronze claro */
-    color: var(--text-dark); /* Texto marrom muito escuro para contraste */
-    border-color: var(--primary-color); /* Borda marrom escuro para destaque */
-    box-shadow: 0 0 0 3px rgba(96, 72, 45, 0.2), 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra de destaque */
+    background-color: var(--secondary-color); 
+    color: var(--text-dark); 
+    border-color: var(--primary-color); 
+    box-shadow: 0 0 0 3px rgba(96, 72, 45, 0.2), 0 4px 8px rgba(0, 0, 0, 0.15); 
     transform: translateY(-2px);
 }
 
@@ -643,8 +773,8 @@ h1, h2, h3 {
     width: 100%;
     padding: 20px 0;
     text-align: center;
-    background-color: var(--primary-color); /* Marrom escuro */
-    color: var(--secondary-color); /* Dourado/Bronze claro */
+    background-color: var(--primary-color); 
+    color: var(--secondary-color); 
     font-size: 0.9em;
     margin-top: auto;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08); 
@@ -663,11 +793,49 @@ h1, h2, h3 {
         margin-top: 15px;
         align-items: center;
     }
+    /* Para o botão no cabeçalho em telas pequenas */
+    .admin-access-header {
+        position: static; /* Remove o posicionamento absoluto em telas menores */
+        margin: 15px auto 0; /* Centraliza e adiciona margem */
+        text-align: center;
+        width: 100%;
+    }
+    .admin-access-header .btn-chic {
+        display: block; /* Ocupa a largura total para ser mais fácil de clicar */
+        width: fit-content; /* Se ajusta ao conteúdo */
+        margin: 0 auto; /* Centraliza o botão */
+    }
+
+    .header-modern-chic {
+        padding-left: 70px; /* Adiciona um padding para o botão de voltar */
+        padding-right: 0; 
+    }
+
+    /* Responsividade para o botão de voltar */
+    .back-to-home-btn {
+        top: 15px; /* Ajusta a posição no topo */
+        left: 15px; /* Ajusta a posição na esquerda */
+        width: 38px; /* DIMINUÍDO AINDA MAIS O TAMANHO EM TELAS PEQUENAS */
+        height: 38px;
+        font-size: 1.1em; /* DIMINUÍDO AINDA MAIS O TAMANHO DA SETA EM TELAS PEQUENAS */
+    }
+
     .section-card {
         padding: 25px;
         min-width: unset;
         width: 95%;
+        max-width: 100%; 
     }
+
+    /* Ajustes para o auth-card e seções em telas menores */
+    .section-card.auth-card,
+    .section-card { /* Adicionado para afetar a seção de finalizar turno também */
+        padding: 25px; /* Reduz o padding em telas menores */
+        margin: 30px auto; /* Ajusta a margem */
+        max-width: 90%; /* Permite que ocupe mais espaço em telas menores */
+    }
+
+
     .section-card h2 {
         font-size: 1.8em;
     }
@@ -713,9 +881,24 @@ h1, h2, h3 {
         width: 100%;
         text-align: center;
     }
+    .auth-form input[type="text"],
+    .auth-form input[type="password"] {
+        width: 100%; /* Ajustado para 100% da caixa */
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
-/* Garante que o cabeçalho do cardápio permita que os elementos fiquem em colunas */
+/* Cabeçalho dos formulários de autenticação */
+.auth-form h2 {
+    font-size: 2em; /* Tamanho do título para os formulários de login/cadastro */
+    margin-bottom: 20px; /* Espaçamento abaixo do título */
+    color: var(--primary-color); /* Cor do título */
+    text-align: center; /* Centraliza o título */
+    width: 100%; /* Garante que o título ocupe a largura completa do formulário */
+}
+
 .header-cardapio-admin {
     display: flex;
     flex-direction: column;
@@ -728,20 +911,18 @@ h1, h2, h3 {
     margin-bottom: 0;
     width: 100%;
     text-align: center;
-    color: var(--primary-color); /* Marrom escuro */
+    color: var(--primary-color); 
 }
 
-/* Estilos para o parágrafo do turno */
 .header-cardapio-admin p {
     margin-top: 0;
     margin-bottom: 5px;
     font-size: 1.05em;
-    color: var(--text-dark); /* Marrom muito escuro para o texto */
+    color: var(--text-dark); 
     width: 100%;
     text-align: center;
 }
 
-/* Estilos para os botões de turno dentro do admin */
 .turnos-buttons-admin {
     display: flex;
     gap: 10px;
@@ -750,74 +931,113 @@ h1, h2, h3 {
     justify-content: center;
 }
 
-/* Estilos para os botões individuais de turno */
 .btn-turno-admin {
-    background-color: var(--gray-medium); /* Cinza médio */
-    color: var(--text-dark); /* Texto marrom escuro */
+    background-color: var(--gray-medium); 
+    color: var(--text-dark); 
     padding: 10px 15px;
     border: 1px solid var(--border-color);
     border-radius: 5px;
     cursor: pointer;
     font-weight: 600;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease; 
     white-space: nowrap;
 }
 
 .btn-turno-admin:hover {
-    background-color: var(--gray-dark); /* Cinza mais escuro no hover */
+    background-color: var(--gray-dark); 
+    border-color: var(--accent-color); 
 }
 
 .btn-turno-admin.active {
-    background-color: var(--primary-color); /* Marrom escuro para o botão ativo */
-    border: 2px solid var(--secondary-color); /* Borda dourado/bronze para destaque */
-    color: var(--text-light); /* Texto branco */
+    background-color: var(--primary-color); 
+    border: 2px solid var(--secondary-color); 
+    color: var(--text-light); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
 }
 
-/* Estilos para a dica de senha */
 .password-hint {
     display: block;
-    max-width: 300px;
-    width: calc(100% - 20px);
-    margin-top: -5px;
-    margin-bottom: 10px;
-    color: var(--text-dark); /* Marrom muito escuro para a dica, garantindo legibilidade */
+    max-width: 350px; /* Mantém a largura do input */
+    width: 100%; /* Ocupa a largura total do container */
+    margin-top: -5px; /* Puxa para cima para ficar mais próximo do input */
+    margin-bottom: 15px; /* Espaçamento após a dica */
+    color: var(--text-dark); 
     font-size: 0.85em;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
+    text-align: left; /* Alinha o texto à esquerda */
+    box-sizing: border-box; /* Inclui padding na largura */
+    padding-left: 10px; /* Pequeno padding para alinhar com o texto do placeholder */
 }
 
-/* Certifique-se de que seus inputs tenham propriedades semelhantes para alinhamento */
-.auth-form input[type="text"],
-.auth-form input[type="password"] {
-    width: calc(100% - 20px);
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
+/* Para o pequeno texto de descrição em "Recuperar Senha" */
+.small-text {
+    font-size: 0.95em;
+    color: var(--text-dark);
+    margin-bottom: 20px; /* Espaço abaixo do texto */
+    text-align: center; /* Centraliza o texto */
+    line-height: 1.4;
+    max-width: 350px; /* Alinha com a largura dos inputs */
+    width: 100%;
 }
 
-/* Pop-up de Confirmação */
+
+/* === Estilos para o pop-up de Login e Sucesso === */
+/* Estilo geral para pop-ups de mensagem */
 .popup-message {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--primary-color); /* Marrom escuro para o pop-up */
+    background-color: var(--primary-color); /* Fundo marrom principal */
     color: var(--text-light); /* Texto branco */
     padding: 20px 30px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    z-index: 1000; /* Garante que fique acima de tudo */
+    opacity: 0; /* Começa invisível */
+    visibility: hidden; /* Garante que não seja interativo quando invisível */
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; /* Transição suave */
     text-align: center;
     font-weight: bold;
     font-size: 1.2em;
-    max-width: 80%;
+    max-width: 80%; /* Largura máxima para responsividade */
+    min-width: 280px; /* Largura mínima para garantir legibilidade */
+    box-sizing: border-box; /* Garante que o padding não aumente a largura */
 }
 
+/* Estado visível do pop-up */
 .popup-message.show {
-    opacity: 1;
-    visibility: visible;
+    opacity: 1; /* Torna visível */
+    visibility: visible; /* Torna interativo */
+}
+
+/* Estilo para o pop-up de login (se você o tiver, para padronização) */
+#login-popup {
+    background-color: var(--background-white); /* Fundo branco para o login */
+    color: var(--text-dark); /* Texto escuro para o login */
+    padding: 30px;
+    max-width: 320px; 
+    min-width: 250px; /* Ajuste se necessário */
+    width: 90%; 
+}
+
+#login-popup h2 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    font-size: 2em;
+    text-align: center;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column; 
+    gap: 15px; 
+    width: 100%; 
+    align-items: center; 
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"] {
+    width: calc(100% - 20px); 
+    max-width: 350px; 
+    margin: 0; 
 }

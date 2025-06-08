@@ -1,18 +1,7 @@
 // admin_script.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    // REMOVIDO: Variáveis de elementos de autenticação não são mais necessárias aqui
-    // const loginForm = document.getElementById('login-form');
-    // const cadastroForm = document.getElementById('cadastro-form');
-    // const authSection = document.getElementById('auth-section');
     const adminPanelSection = document.getElementById('admin-panel-section');
-    // REMOVIDO: Botões de mostrar/esconder cadastro não são mais necessários
-    // const showCadastroBtn = document.getElementById('show-cadastro-btn');
-    // const hideCadastroBtn = document.getElementById('hide-cadastro-btn');
-    // const authMessage = document.getElementById('auth-message');
-
-    // REMOVIDO: Botão de Logout (já não existe no HTML)
-    // const logoutBtn = document.getElementById('logout-btn');
 
     // Elementos de gerenciamento de cardápio
     const addItemForm = document.getElementById('add-item-form');
@@ -22,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Elementos do relatório
     const relatorioContagemMerendeiraDiv = document.getElementById('relatorio-contagem-merendeira');
-    let merendaChart;
+    let merendaChart; // Mantido, embora não haja lógica de gráfico aqui
 
     // Botão Finalizar Turno
     const finalizarTurnoBtn = document.getElementById('finalizar-turno-btn');
@@ -74,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function carregarCardapioAdmin() {
         cardapioListAdmin.innerHTML = '';
         if (cardapioDoDia.length === 0) {
+            // Este parágrafo será centralizado devido ao 'text-align: center' no CSS de #cardapio-list-admin
             cardapioListAdmin.innerHTML = '<p>Nenhum item no cardápio. Adicione novos itens acima!</p>';
             return;
         }
@@ -103,7 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Relatório ---
     function carregarRelatorioMerendeira() {
         relatorioContagemMerendeiraDiv.innerHTML = '';
-        relatorioContagemMerendeiraDiv.innerHTML += `<p>Total de pratos confirmados neste turno: <strong><span>${numConfirmacoes}</span></strong></p>`;
+        // Modificado: Adicionado a classe 'report-number' ao <span> do numConfirmacoes
+        relatorioContagemMerendeiraDiv.innerHTML += `<p>Total de pratos confirmados neste turno: <strong><span class="report-number">${numConfirmacoes}</span></strong></p>`;
         relatorioContagemMerendeiraDiv.innerHTML += `<p>Contagem por item:</p>`;
 
         if (Object.keys(contagemMerenda).length === 0) {
@@ -115,7 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
         cardapioDoDia.forEach(item => {
             const count = contagemMerenda[item.id] || 0;
             const li = document.createElement('li');
-            li.innerHTML = `${item.nome}: <strong><span>${count}</span></strong> ${item.tipo === 'unidade' ? 'unidades' : 'porções'}`;
+            // Modificado: Adicionado a classe 'report-number' ao <span> do count
+            li.innerHTML = `${item.nome}: <strong><span class="report-number">${count}</span></strong> ${item.tipo === 'unidade' ? 'unidades' : 'porções'}`;
             ul.appendChild(li);
         });
         relatorioContagemMerendeiraDiv.appendChild(ul);

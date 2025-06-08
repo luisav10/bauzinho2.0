@@ -159,3 +159,107 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'admin.html';
     });
 });
+// Função para mostrar o pop-up
+function showPopup(messageElementId) {
+    const popup = document.getElementById(messageElementId);
+    if (popup) {
+        popup.classList.add('show');
+        setTimeout(() => {
+            popup.classList.remove('show');
+        }, 3000); // O pop-up desaparece após 3 segundos
+    }
+}
+
+// --- Código existente do seu script finalizar_turno_script.js ---
+// ... (mantenha todo o seu código existente aqui) ...
+
+// Exemplo de como você chamaria o pop-up após gerar o PDF e zerar os dados:
+document.addEventListener('DOMContentLoaded', () => {
+    const gerarRelatorioBtn = document.getElementById('gerar-relatorio-pdf-final');
+    
+    if (gerarRelatorioBtn) {
+        gerarRelatorioBtn.addEventListener('click', async () => {
+            // (Seu código existente para gerar PDF e zerar dados aqui)
+            // Simulação de sucesso da geração do PDF e zerar dados
+            console.log('Gerando relatório PDF e zerando dados do turno...');
+
+            // Supondo que a geração do PDF e o zeramento de dados ocorram aqui
+            // E que eles sejam bem-sucedidos
+            await new Promise(resolve => setTimeout(resolve, 1500)); // Simula um atraso
+
+            // CHAMA O POP-UP DE SUCESSO
+            showPopup('success-popup');
+
+            // Redireciona de volta ao painel após um pequeno atraso para o usuário ver o pop-up
+            setTimeout(() => {
+                window.location.href = 'admin_panel.html'; // Altere para a URL correta do seu painel
+            }, 3500); // 3.5 segundos (3s do pop-up + 0.5s para transição)
+        });
+    }
+
+    // Código para o botão "Voltar ao Painel"
+    const cancelarFinalizarBtn = document.getElementById('cancelar-finalizar-btn');
+    if (cancelarFinalizarBtn) {
+        cancelarFinalizarBtn.addEventListener('click', () => {
+            window.location.href = 'admin_panel.html'; // Altere para a URL correta do seu painel
+        });
+    }
+
+    // ... (restante do seu código JavaScript, se houver) ...
+});
+// --- FUNÇÃO PARA MOSTRAR O POP-UP ---
+function showPopup(messageElementId) {
+    const popup = document.getElementById(messageElementId);
+    if (popup) {
+        popup.classList.add('show');
+        // O pop-up desaparece após 3 segundos
+        setTimeout(() => {
+            popup.classList.remove('show');
+        }, 3000); 
+    }
+}
+
+// --- Listener para garantir que o DOM esteja totalmente carregado ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Referência ao botão "Gerar Relatório em PDF"
+    const gerarRelatorioBtn = document.getElementById('gerar-relatorio-pdf-final');
+    
+    // Verifica se o botão existe antes de adicionar o evento
+    if (gerarRelatorioBtn) {
+        gerarRelatorioBtn.addEventListener('click', async () => {
+            // --- INÍCIO DO SEU CÓDIGO EXISTENTE PARA GERAR PDF E ZERAR DADOS ---
+            // Você deve ter a lógica real de geração de PDF e zeramento de dados aqui.
+            // Por exemplo:
+            console.log('Iniciando geração do relatório PDF...');
+            // await gerarPDFReal(); // Se você tiver uma função assíncrona para gerar o PDF
+            // await zerarDadosDoTurno(); // Se você tiver uma função assíncrona para zerar os dados
+            
+            // Simulação de um processo que leva tempo (ex: geração de PDF)
+            // Remova esta linha na implementação real
+            await new Promise(resolve => setTimeout(resolve, 1500)); 
+
+            // --- FIM DO SEU CÓDIGO EXISTENTE ---
+
+            // CHAMA O POP-UP DE SUCESSO APÓS A OPERAÇÃO SER CONCLUÍDA
+            showPopup('success-popup');
+
+            // Redireciona de volta ao painel após um pequeno atraso para o usuário ver o pop-up
+            setTimeout(() => {
+                window.location.href = 'admin_panel.html'; // Altere para a URL correta do seu painel
+            }, 3500); // 3.5 segundos (3s do pop-up + 0.5s para transição)
+        });
+    }
+
+    // Código para o botão "Voltar ao Painel" (MANTIDO DO SEU CÓDIGO ORIGINAL)
+    const cancelarFinalizarBtn = document.getElementById('cancelar-finalizar-btn');
+    if (cancelarFinalizarBtn) {
+        cancelarFinalizarBtn.addEventListener('click', () => {
+            window.location.href = 'admin_panel.html'; // Altere para a URL correta do seu painel
+        });
+    }
+
+    // --- Outros códigos JavaScript que você já tenha no finalizar_turno_script.js devem vir AQUI ---
+    // Exemplo:
+    // setupChart();
+    // loadReportData();
+});

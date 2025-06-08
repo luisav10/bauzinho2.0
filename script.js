@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Carrega o turno ativo definido pela merendeira
         const currentActiveTurno = localStorage.getItem('bauMerendaTurnoAtivo') || 'Não definido';
-        activeTurnoSpan.textContent = `Turno: ${currentActiveTurno}`;
+        activeTurnoSpan.textContent = ` ${currentActiveTurno}`;
     }
     setInterval(updateDateTimeAndTurno, 1000); // Atualiza a cada segundo
     updateDateTimeAndTurno(); // Chama uma vez para exibir imediatamente

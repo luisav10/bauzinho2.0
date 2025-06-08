@@ -7,21 +7,34 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <header class="header-modern-chic">
+        <a href="index.html" class="back-to-home-btn">
+            <i class="fas fa-arrow-left"></i>
+        </a>
         <img src="logo_bau_merenda_clean.png" alt="Logo Baú da Merenda" class="logo-chic">
         <h1>Painel da Merendeira</h1>
         <p>Gerencie o cardápio e acompanhe a demanda.</p>
         <nav>
-            </nav>
+        </nav>
     </header>
 
     <main class="main-content-modern-chic">
         <section id="admin-panel-section" style="flex-wrap: wrap; gap: 30px; justify-content: center;">
             <section id="cardapio-gerenciamento-section" class="section-card">
                 <div class="header-cardapio-admin">
-                    <h2>Gerenciar Cardápio do Dia</h2>
+                    <h2>Montar Cardápio do Dia</h2>
+                </div>
+                
+                <div id="admin-cardapio-message" style="display: none; border: 1px solid #FFECB3; background-color: #FFF8E1; padding: 20px; margin-bottom: 25px; text-align: center; border-radius: 8px;">
+                    <p id="admin-message-text" style="font-size: 1.1em; color: var(--text-dark); margin: 0; line-height: 1.5;"></p>
+                    <button id="btn-edit-cardapio" class="btn-chic small-btn secondary" style="display: none; margin-top: 10px; padding: 10px 20px; font-size: 0.95em; border-radius: 25px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);">
+                        <i class="fas fa-edit"></i> Editar Cardápio
+                    </button>
+                </div>
+                <div class="info-box"> 
                     <p>Qual turno você está gerenciando? (<strong id="current-active-turno-display">Não definido</strong>)</p>
                     <div class="turnos-buttons-admin">
                         <button class="btn-turno-admin" data-turno="Manhã">Manhã</button>
@@ -29,14 +42,17 @@
                         <button class="btn-turno-admin" data-turno="Noite">Noite</button>
                     </div>
                 </div>
-                <form id="add-item-form" class="item-form">
-                    <input type="text" id="item-nome" placeholder="Nome do Alimento (ex: Arroz)" required>
-                    <select id="item-tipo">
-                        <option value="porcao">Por Porção (ex: Arroz, Feijão)</option>
-                        <option value="unidade">Por Unidade (ex: Ovo Cozido)</option>
-                    </select>
-                    <button type="submit" class="btn-chic primary">Adicionar Item</button>
-                </form>
+                <div class="info-box"> 
+                    <p>Monte o cardápio!</p>
+                    <form id="add-item-form" class="item-form-content"> 
+                        <input type="text" id="item-nome" placeholder="Nome do Alimento (ex: Arroz)" required>
+                        <select id="item-tipo">
+                            <option value="porcao">Por Porção (ex: Arroz, Feijão)</option>
+                            <option value="unidade">Por Unidade (ex: Ovo Cozido)</option>
+                        </select>
+                        <button type="submit" id="add-item-btn" class="btn-chic primary">Adicionar Item</button>
+                    </form>
+                </div>
                 <div id="cardapio-list-admin">
                 </div>
                 <button id="enviar-cardapio-btn" class="btn-chic primary prominent-action">Enviar o Cardápio</button>
@@ -44,7 +60,8 @@
 
             <section id="relatorio-section" class="section-card">
                 <h2>Relatório de Merenda do Dia</h2>
-                <div id="relatorio-contagem-merendeira">
+                <div id="relatorio-contagem-merendeira" class="info-box">
+                    Total de pratos confirmados neste turno: <span class="report-number">0</span><br><br>Contagem por item:<br><br>Nenhum item de merenda foi selecionado ainda.
                 </div>
                 <button id="finalizar-turno-btn" class="btn-chic action-danger">Finalizar Turno</button>
             </section>
