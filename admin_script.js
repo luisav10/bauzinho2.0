@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardapioListAdmin = document.getElementById('cardapio-list-admin');
     const turnosButtonsAdmin = document.querySelector('.turnos-buttons-admin');
     const currentActiveTurnoDisplay = document.getElementById('current-active-turno-display');
+    // Adicione uma referência para o título de itens adicionados
+    const sectionTitleText = cardapioListAdmin.querySelector('.section-title-text'); 
+    const emptyListMessage = document.createElement('p'); // Criar um elemento para a mensagem de lista vazia
+    emptyListMessage.textContent = 'Nenhum item no cardápio. Adicione novos itens acima!';
+    emptyListMessage.classList.add('empty-list-message'); // Adicionar uma classe para estilização, se necessário
 
     // Elementos do relatório
     const relatorioContagemMerendeiraDiv = document.getElementById('relatorio-contagem-merendeira');
@@ -61,21 +66,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Gerenciamento do Cardápio ---
     function carregarCardapioAdmin() {
-        cardapioListAdmin.innerHTML = '';
-        if (cardapioDoDia.length === 0) {
-            // Este parágrafo será centralizado devido ao 'text-align: center' no CSS de #cardapio-list-admin
-            cardapioListAdmin.innerHTML = '<p>Nenhum item no cardápio. Adicione novos itens acima!</p>';
-            return;
+        // Encontra o elemento que lista os itens (excluindo o título)
+        let itemListContainer = cardapioListAdmin.querySelector('.item-list-container');
+        if (!itemListContainer) {
+            itemListContainer = document.createElement('div');
+            itemListContainer.classList.add('item-list-container');
+            // Insere o container APÓS o título, se o título existir.
+            // Caso contrário, insere como primeiro filho.
+            if (sectionTitleText) {
+                cardapioListAdmin.insertBefore(itemListContainer, sectionTitleText.nextSibling);
+            } else {
+                cardapioListAdmin.appendChild(itemListContainer);
+            }
         }
-        cardapioDoDia.forEach(item => {
-            const div = document.createElement('div');
-            div.classList.add('cardapio-item-admin');
-            div.innerHTML = `
-                <span class="item-info">${item.nome} <span class="item-type">(${item.tipo === 'unidade' ? 'por unidade' : 'por porção'})</span></span>
-                <button class="delete-btn" data-id="${item.id}">Remover</button>
-            `;
-            cardapioListAdmin.appendChild(div);
-        });
+        itemListContainer.innerHTML = ''; // Limpa APENAS a lista de itens, mantendo o título
+
+        if (cardapioDoDia.length === 0) {
+            itemListContainer.appendChild(emptyListMessage); // Adiciona a mensagem de lista vazia
+            sectionTitleText.style.display = 'none'; // Esconde o título quando não há itens
+        } else {
+            if (emptyListMessage.parentNode) { // Remove a mensagem de lista vazia se ela existir
+                emptyListMessage.parentNode.removeChild(emptyListMessage);
+            }
+            sectionTitleText.style.display = 'block'; // Mostra o título quando há itens
+            cardapioDoDia.forEach(item => {
+                const div = document.createElement('div');
+                div.classList.add('cardapio-item-admin');
+                div.innerHTML = `
+                    <span class="item-info">${item.nome} <span class="item-type">(${item.tipo === 'unidade' ? 'por unidade' : 'por porção'})</span></span>
+                    <button class="delete-btn" data-id="${item.id}">Remover</button>
+                `;
+                itemListContainer.appendChild(div); // Adiciona ao container de itens
+            });
+        }
         addDeleteListeners();
     }
 
@@ -203,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAdminData();
     currentActiveTurnoDisplay.textContent = currentActiveTurno || 'Não definido'; // Atualiza o display do turno
 
-    carregarCardapioAdmin();
+    carregarCardapioAdmin(); // Carrega o cardápio (e o título)
     carregarRelatorioMerendeira();
     markActiveTurnoButton(); // Marca o botão de turno ativo na inicialização
 });

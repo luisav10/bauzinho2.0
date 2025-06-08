@@ -1,0 +1,44 @@
+/* css/_variables.css */
+
+:root {
+    /* Paleta de Cores: Sofisticada, Madura e Moderna (inspirada nas suas cores) */
+    --primary-color: #60482D; /* Marrom escuro, a cor principal para fundos e botões primários */
+    --secondary-color: #AF8F60; /* Dourado/Bronze claro, para acentos, títulos e destaques */
+    --accent-color: #876B47; /* Marrom-dourado intermediário, para bordas, hovers e elementos secundários */
+    --text-dark: #3e1c00; /* Um marrom muito escuro, quase preto, para garantir legibilidade dos textos principais */
+    --text-light: #FFFFFF; /* Branco puro para textos sobre fundos escuros */
+    --background-white: #FFFFFF; /* Fundo principal branco */
+    --border-color: #DDDDDD; /* Cinza muito claro para bordas suaves e divisões */
+    
+    /* Cores de Cinza para elementos secundários */
+    --gray-light: #F8F8F8; /* Um cinza muito, muito claro, quase branco, para seções com fundo suave */
+    --gray-medium: #CCCCCC; /* Cinza médio para bordas ou elementos que precisam de um pouco mais de presença */
+    --gray-dark: #BBBBBB; /* Um cinza um pouco mais escuro para fundos secundários */
+
+    /* Cor de fundo para as divs principais do index, um off-white cremoso */
+    --section-background-color: #FDF9F6; /* Um off-white quente, puxado para o bege claro */
+
+    /* Cores para Ações Específicas (VERMELHO e VERDE) */
+    --action-success: #28a745; /* Verde para ações de sucesso/confirmação */
+    --action-danger: #dc3545; /* Vermelho para ações de perigo/cancelamento */
+
+    /* Cores ajustadas para hover/darker versions */
+    --primary-color-dark: #493A22; /* Versão mais escura do primary para hover (derivado de 60482D) */
+    --secondary-color-dark: #815c2a; /* Usando 815c2a como versão mais escura do secondary para hover */
+    --accent-color-light: #A08361; /* Versão mais clara do accent para detalhes */
+
+    /* Variáveis de sombra e raio de borda */
+    --border-radius-soft: 8px;
+    --box-shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08); 
+    --transition-speed-fast: 0.2s ease-in-out;
+    --transition-speed-normal: 0.3s ease-in-out;
+
+    --border-radius-input: 6px;
+    --border-radius-button: 25px;
+    --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.08); 
+    --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.12); 
+    --shadow-deep: 0 10px 20px rgba(0, 0, 0, 0.18); 
+
+    /* Fonte para números simples */
+    --simple-number-font: 'Arial', sans-serif; /* Uma fonte simples e limpa */
+}

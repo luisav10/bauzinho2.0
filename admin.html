@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baú da Merenda Digital - Gerenciamento</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/_variables.css">
+    <link rel="stylesheet" href="css/_base.css">
+    <link rel="stylesheet" href="css/_main.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -28,9 +30,9 @@
                     <h2>Montar Cardápio do Dia</h2>
                 </div>
                 
-                <div id="admin-cardapio-message" style="display: none; border: 1px solid #FFECB3; background-color: #FFF8E1; padding: 20px; margin-bottom: 25px; text-align: center; border-radius: 8px;">
-                    <p id="admin-message-text" style="font-size: 1.1em; color: var(--text-dark); margin: 0; line-height: 1.5;"></p>
-                    <button id="btn-edit-cardapio" class="btn-chic small-btn secondary" style="display: none; margin-top: 10px; padding: 10px 20px; font-size: 0.95em; border-radius: 25px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);">
+                <div id="admin-cardapio-message" class="admin-cardapio-message" style="display: none;">
+                    <p id="admin-message-text"></p>
+                    <button id="btn-edit-cardapio" class="btn-chic small-btn secondary" style="display: none;">
                         <i class="fas fa-edit"></i> Editar Cardápio
                     </button>
                 </div>
@@ -54,6 +56,7 @@
                     </form>
                 </div>
                 <div id="cardapio-list-admin">
+                    <p class="section-title-text">Itens adicionados ao cardápio</p>
                 </div>
                 <button id="enviar-cardapio-btn" class="btn-chic primary prominent-action">Enviar o Cardápio</button>
             </section>

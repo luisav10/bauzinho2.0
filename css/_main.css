@@ -1,68 +1,4 @@
-/* style.css */
-
-:root {
-    /* Paleta de Cores: Sofisticada, Madura e Moderna (inspirada nas suas cores) */
-    --primary-color: #60482D; /* Marrom escuro, a cor principal para fundos e botões primários */
-    --secondary-color: #AF8F60; /* Dourado/Bronze claro, para acentos, títulos e destaques */
-    --accent-color: #876B47; /* Marrom-dourado intermediário, para bordas, hovers e elementos secundários */
-    --text-dark: #3e1c00; /* Um marrom muito escuro, quase preto, para garantir legibilidade dos textos principais */
-    --text-light: #FFFFFF; /* Branco puro para textos sobre fundos escuros */
-    --background-white: #FFFFFF; /* Fundo principal branco */
-    --border-color: #DDDDDD; /* Cinza muito claro para bordas suaves e divisões */
-    
-    /* Cores de Cinza para elementos secundários */
-    --gray-light: #F8F8F8; /* Um cinza muito, muito claro, quase branco, para seções com fundo suave */
-    --gray-medium: #CCCCCC; /* Cinza médio para bordas ou elementos que precisam de um pouco mais de presença */
-    --gray-dark: #BBBBBB; /* Um cinza um pouco mais escuro para fundos secundários */
-
-    /* Cor de fundo para as divs principais do index, um off-white cremoso */
-    --section-background-color: #FDF9F6; /* Um off-white quente, puxado para o bege claro */
-
-    /* Cores para Ações Específicas (VERMELHO e VERDE) */
-    --action-success: #28a745; /* Verde para ações de sucesso/confirmação */
-    --action-danger: #dc3545; /* Vermelho para ações de perigo/cancelamento */
-
-    /* Cores ajustadas para hover/darker versions */
-    --primary-color-dark: #493A22; /* Versão mais escura do primary para hover (derivado de 60482D) */
-    --secondary-color-dark: #815c2a; /* Usando 815c2a como versão mais escura do secondary para hover */
-    --accent-color-light: #A08361; /* Versão mais clara do accent para detalhes */
-
-    /* Variáveis de sombra e raio de borda */
-    --border-radius-soft: 8px;
-    --box-shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08); 
-    --transition-speed-fast: 0.2s ease-in-out;
-    --transition-speed-normal: 0.3s ease-in-out;
-
-    --border-radius-input: 6px;
-    --border-radius-button: 25px;
-    --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.08); 
-    --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.12); 
-    --shadow-deep: 0 10px 20px rgba(0, 0, 0, 0.18); 
-
-    /* Fonte para números simples */
-    --simple-number-font: 'Arial', sans-serif; /* Uma fonte simples e limpa */
-}
-
-body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: var(--background-white); /* Fundo principal branco */
-    color: var(--text-dark); /* Texto principal marrom muito escuro para legibilidade */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    overflow-x: hidden;
-    line-height: 1.6;
-}
-
-/* Títulos com fonte serifada elegante */
-h1, h2, h3 {
-    font-family: 'Playfair Display', serif;
-    color: var(--primary-color); /* Marrom principal para títulos */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05); /* Sombra mais sutil */
-}
+/* css/_main.css */
 
 /* Cabeçalho */
 .header-modern-chic {
@@ -135,7 +71,6 @@ h1, h2, h3 {
     box-shadow: var(--shadow-medium); /* Sombra mais pronunciada no hover */
 }
 
-
 .logo-chic {
     height: 90px;
     margin-bottom: 15px;
@@ -189,7 +124,8 @@ h1, h2, h3 {
     width: 90%;
     max-width: 1200px;
     display: flex;
-    flex-direction: column; /* Empilha os itens verticalmente */
+    flex-direction: row; /* ALTERADO PARA ROW */
+    flex-wrap: wrap; /* Adicionado para quebrar a linha se não houver espaço */
     gap: 30px;
     justify-content: center;
     margin-bottom: 50px;
@@ -203,19 +139,19 @@ h1, h2, h3 {
     padding: 35px;
     box-shadow: var(--box-shadow-subtle);
     text-align: center;
-    width: 100%; /* Garante que ocupe a largura total disponível */
-    max-width: 100%; /* Garante que ocupe a largura máxima disponível */
+    /* Removido o width: 100%; e max-width: 100%; para permitir o flex-item se ajustar */
+    /* Removido max-width: 450px; e margin: 40px auto; do .section-card para permitir alinhamento horizontal */
+    flex: 1; /* Permite que o card se expanda e encolha dentro do flex container */
+    min-width: 300px; /* Garante que o card não fique muito pequeno */
     box-sizing: border-box;
 }
 
-/* Centraliza e limita a largura da seção de autenticação e da seção de finalizar turno */
-.section-card.auth-card,
-.section-card { /* Adicionado para afetar a seção de finalizar turno também */
-    max-width: 450px; /* Largura máxima para a caixa */
-    margin: 40px auto; /* Centraliza a caixa na página */
+/* Manter a largura máxima para auth-card se a ideia é que ele seja um popup ou box centralizado */
+.section-card.auth-card {
+    max-width: 450px; /* Largura máxima para a caixa de autenticação */
+    margin: 40px auto; /* Centraliza a caixa de autenticação */
     padding: 40px; /* Mais padding para um visual mais "aberto" */
 }
-
 
 .section-card h2 {
     font-size: 2.2em;
@@ -465,6 +401,39 @@ h1, h2, h3 {
     transform: translateY(-2px);
 }
 
+/* *** ALTERAÇÃO ANTERIOR AQUI: Botão de "Enviar Cardápio" para Verde *** */
+#enviar-cardapio-btn {
+    background-color: var(--action-success); /* Cor verde para o botão de enviar */
+    color: var(--text-light); /* Cor do texto branco */
+}
+
+#enviar-cardapio-btn:hover {
+    background-color: #218838; /* Verde um pouco mais escuro no hover */
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+/* *** FIM DA ALTERAÇÃO ANTERIOR *** */
+
+/* NOVO: Estilo para a mensagem de turno ativo (será injetada dinamicamente) */
+.turno-ativo-message-text {
+    text-align: center;
+    font-size: 1.1em;
+    color: var(--primary-color); /* Usa a cor primária para destaque */
+    font-weight: 600;
+    padding: 20px 10px; /* Espaçamento interno para a mensagem */
+    background-color: var(--background-white); /* Fundo branco para se destacar */
+    border-radius: var(--border-radius-soft); /* Bordas arredondadas */
+    box-shadow: var(--box-shadow-subtle); /* Sombra suave */
+    margin-top: 20px; /* Margem superior para separar de outros elementos */
+    line-height: 1.5; /* Altura da linha para melhor leitura */
+    display: none; /* Inicia escondida, JS controlará a visibilidade */
+}
+
+.turno-ativo-message-text strong {
+    color: var(--secondary-color); /* Destaca o nome do turno */
+}
+/* *** FIM DA NOVA ALTERAÇÃO *** */
+
 /* Botão "Mudar Turno" no admin */
 .btn-chic.small-btn {
     padding: 8px 15px;
@@ -538,6 +507,11 @@ h1, h2, h3 {
     justify-content: center;
 }
 
+/* CORREÇÃO AQUI: Garante que o canvas do gráfico seja responsivo dentro do seu container */
+#finalMerendaChart {
+    max-width: 100%; /* Garante que o gráfico não exceda a largura do seu container */
+    height: auto; /* Mantém a proporção do gráfico */
+}
 
 .info-box p {
     font-size: 1.05em; /* Tamanho da fonte para o texto comum dentro da caixa */
@@ -637,33 +611,51 @@ h1, h2, h3 {
     box-shadow: none;
 }
 
+/* MODIFICAÇÃO IMPORTANTE AQUI: Ajustes para o padding da lista e dos itens */
 #cardapio-list-admin {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-    text-align: left;
+    flex-direction: column; /* Garante que os itens (e o título) fiquem em coluna */
     margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border-color); /* Borda cinza muito claro */
-    text-align: center; /* Adicionado para centralizar o texto */
+    padding: 20px; /* Aumentado o padding para afastar mais das bordas da caixa */
+    border: 1px solid var(--border-color); /* Borda da lista */
+    border-radius: var(--border-radius-soft); /* Bordas arredondadas da lista */
+    background-color: var(--background-white); /* Fundo da lista */
+    box-shadow: var(--box-shadow-subtle); /* Sombra da lista */
+    min-height: 80px; /* Adicionado um mínimo de altura para garantir que a caixa tenha espaço */
+    overflow: visible; /* Garante que nada seja cortado se o conteúdo exceder a altura */
+}
+
+/* Container para os itens que o JS vai adicionar */
+.item-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Espaçamento entre os itens */
 }
 
 .cardapio-item-admin {
     background-color: var(--gray-light); 
     border: 1px solid var(--border-color); 
     border-radius: calc(var(--border-radius-soft) / 2);
-    padding: 12px 20px;
+    padding: 12px; /* Apenas padding vertical e um padding geral para o conteúdo interno do item */
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 1.05em;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03); 
+    text-align: left; /* Garante que o texto dentro do item alinhe à esquerda */
 }
+
+/* Remove a margem inferior do último item para não adicionar espaço desnecessário */
+.cardapio-item-admin:last-child {
+    margin-bottom: 0;
+}
+
 
 .cardapio-item-admin .item-info {
     flex-grow: 1;
     font-weight: 500;
     color: var(--text-dark);
+    margin-right: 15px; /* Espaço entre o texto e o botão */
 }
 
 .cardapio-item-admin .item-type {
@@ -684,6 +676,7 @@ h1, h2, h3 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     transition: background-color 0.3s ease, border-color 0.3s ease; 
+    flex-shrink: 0;
 }
 
 .cardapio-item-admin .delete-btn:hover {
@@ -819,6 +812,9 @@ h1, h2, h3 {
         height: 38px;
         font-size: 1.1em; /* DIMINUÍDO AINDA MAIS O TAMANHO DA SETA EM TELAS PEQUENAS */
     }
+    .main-content-modern-chic {
+        flex-direction: column; /* Volta para column em telas menores */
+    }
 
     .section-card {
         padding: 25px;
@@ -834,7 +830,6 @@ h1, h2, h3 {
         margin: 30px auto; /* Ajusta a margem */
         max-width: 90%; /* Permite que ocupe mais espaço em telas menores */
     }
-
 
     .section-card h2 {
         font-size: 1.8em;
@@ -979,7 +974,6 @@ h1, h2, h3 {
     width: 100%;
 }
 
-
 /* === Estilos para o pop-up de Login e Sucesso === */
 /* Estilo geral para pop-ups de mensagem */
 .popup-message {
@@ -1040,4 +1034,31 @@ h1, h2, h3 {
     width: calc(100% - 20px); 
     max-width: 350px; 
     margin: 0; 
+}
+
+/* Estilo para o título "Itens adicionados ao cardápio" */
+.section-title-text {
+    font-size: 1.05em; 
+    margin-top: 0; 
+    margin-bottom: 15px; /* Espaçamento inferior para separar o título dos itens da lista */
+    color: var(--text-dark); 
+    text-align: center; /* <<< ALTERADO AQUI PARA CENTRALIZAR O TEXTO */
+    width: 100%; 
+    font-weight: 600; 
+    display: block; 
+    visibility: visible; 
+    opacity: 1; 
+    min-height: 1.2em; 
+    line-height: 1.2em; 
+    box-sizing: border-box; 
+    white-space: normal; 
+    overflow: visible; 
+}
+
+/* Estilo para a mensagem de lista vazia (controlada pelo JS) */
+.empty-list-message {
+    text-align: center; 
+    color: var(--text-dark);
+    margin-top: 15px;
+    font-style: italic;
 }
