@@ -4,30 +4,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminPanelSection = document.getElementById('admin-panel-section');
 
     // Elementos de gerenciamento de cardápio
+    const cardapioManagementControls = document.getElementById('cardapio-management-controls'); // Novo container para os controles
     const addItemForm = document.getElementById('add-item-form');
     const cardapioListAdmin = document.getElementById('cardapio-list-admin');
-    const turnosButtonsAdmin = document.querySelector('.turnos-buttons-admin');
+    const turnosButtonsAdminContainer = document.getElementById('turnos-buttons-admin-container'); // Agora com ID
     const currentActiveTurnoDisplay = document.getElementById('current-active-turno-display');
-    // Adicione uma referência para o título de itens adicionados
-    const sectionTitleText = cardapioListAdmin.querySelector('.section-title-text'); 
-    const emptyListMessage = document.createElement('p'); // Criar um elemento para a mensagem de lista vazia
+    const sectionTitleText = cardapioListAdmin.querySelector('.section-title-text');
+    const emptyListMessage = document.createElement('p');
     emptyListMessage.textContent = 'Nenhum item no cardápio. Adicione novos itens acima!';
-    emptyListMessage.classList.add('empty-list-message'); // Adicionar uma classe para estilização, se necessário
+    emptyListMessage.classList.add('empty-list-message');
 
     // Elementos do relatório
     const relatorioContagemMerendeiraDiv = document.getElementById('relatorio-contagem-merendeira');
-    let merendaChart; // Mantido, embora não haja lógica de gráfico aqui
+    let merendaChart;
 
-    // Botão Finalizar Turno
-    const finalizarTurnoBtn = document.getElementById('finalizar-turno-btn');
+    // Botões e mensagens do novo sistema de turno ativo
+    const turnoAtivoDisplay = document.getElementById('turno-ativo-display'); // Mensagem "Turno X está ativo"
+    const turnoAtivoMessageText = document.getElementById('turno-ativo-message-text'); // Onde o texto da mensagem vai
+    const finalizarTurnoBtnInner = document.getElementById('finalizar-turno-btn-inner'); // Botão "Finalizar Turno" dentro da mensagem
 
     // Botão Enviar Cardápio
     const enviarCardapioBtn = document.getElementById('enviar-cardapio-btn');
 
     // --- Variáveis de Dados (persistência via localStorage) ---
-    let cardapioDoDia = []; // Lista de objetos { id: ..., nome: ..., tipo: ... }
-    let contagemMerenda = {}; // Objeto { itemId: count }
-    let numConfirmacoes = 0; // Número total de confirmações de pratos
+    let cardapioDoDia = [];
+    let contagemMerenda = {};
+    let numConfirmacoes = 0;
     let currentActiveTurno = '';
 
     // --- Funções de Local Storage ---
@@ -35,7 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('cardapioDoDia', JSON.stringify(cardapioDoDia));
         localStorage.setItem('bauMerendaContagem', JSON.stringify(contagemMerenda));
         localStorage.setItem('bauMerendaNumConfirmacoes', numConfirmacoes.toString());
-        localStorage.setItem('bauMerendaTurnoAtivo', currentActiveTurno);
+        // ESSENCIAL: SALVA O TURNO ATIVO AO ENVIAR CARDÁPIO OU SELECIONAR UM
+        localStorage.setItem('bauMerendaTurnoAtivo', currentActiveTurno); 
     }
 
     function loadAdminData() {
@@ -46,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
             currentActiveTurno = localStorage.getItem('bauMerendaTurnoAtivo') || '';
         } catch (e) {
             console.error('Erro ao carregar dados do localStorage:', e);
-            // Se houver erro, zera tudo para evitar problemas
             cardapioDoDia = [];
             contagemMerenda = {};
             numConfirmacoes = 0;
@@ -60,35 +62,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function performLogout() {
-        localStorage.removeItem('isMerendeiraLoggedIn'); // Remove o status de login
-        // Não redireciona aqui, o redirecionamento será feito no event listener do botão enviarCardapioBtn
+        localStorage.removeItem('isMerendeiraLoggedIn');
     }
 
     // --- Gerenciamento do Cardápio ---
     function carregarCardapioAdmin() {
-        // Encontra o elemento que lista os itens (excluindo o título)
         let itemListContainer = cardapioListAdmin.querySelector('.item-list-container');
         if (!itemListContainer) {
             itemListContainer = document.createElement('div');
             itemListContainer.classList.add('item-list-container');
-            // Insere o container APÓS o título, se o título existir.
-            // Caso contrário, insere como primeiro filho.
             if (sectionTitleText) {
                 cardapioListAdmin.insertBefore(itemListContainer, sectionTitleText.nextSibling);
             } else {
                 cardapioListAdmin.appendChild(itemListContainer);
             }
         }
-        itemListContainer.innerHTML = ''; // Limpa APENAS a lista de itens, mantendo o título
+        itemListContainer.innerHTML = '';
 
         if (cardapioDoDia.length === 0) {
-            itemListContainer.appendChild(emptyListMessage); // Adiciona a mensagem de lista vazia
-            sectionTitleText.style.display = 'none'; // Esconde o título quando não há itens
+            itemListContainer.appendChild(emptyListMessage);
+            sectionTitleText.style.display = 'none';
         } else {
-            if (emptyListMessage.parentNode) { // Remove a mensagem de lista vazia se ela existir
+            if (emptyListMessage.parentNode) {
                 emptyListMessage.parentNode.removeChild(emptyListMessage);
             }
-            sectionTitleText.style.display = 'block'; // Mostra o título quando há itens
+            sectionTitleText.style.display = 'block';
             cardapioDoDia.forEach(item => {
                 const div = document.createElement('div');
                 div.classList.add('cardapio-item-admin');
@@ -96,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="item-info">${item.nome} <span class="item-type">(${item.tipo === 'unidade' ? 'por unidade' : 'por porção'})</span></span>
                     <button class="delete-btn" data-id="${item.id}">Remover</button>
                 `;
-                itemListContainer.appendChild(div); // Adiciona ao container de itens
+                itemListContainer.appendChild(div);
             });
         }
         addDeleteListeners();
@@ -116,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Relatório ---
     function carregarRelatorioMerendeira() {
         relatorioContagemMerendeiraDiv.innerHTML = '';
-        // Modificado: Adicionado a classe 'report-number' ao <span> do numConfirmacoes
         relatorioContagemMerendeiraDiv.innerHTML += `<p>Total de pratos confirmados neste turno: <strong><span class="report-number">${numConfirmacoes}</span></strong></p>`;
         relatorioContagemMerendeiraDiv.innerHTML += `<p>Contagem por item:</p>`;
 
@@ -129,24 +126,25 @@ document.addEventListener('DOMContentLoaded', () => {
         cardapioDoDia.forEach(item => {
             const count = contagemMerenda[item.id] || 0;
             const li = document.createElement('li');
-            // Modificado: Adicionado a classe 'report-number' ao <span> do count
             li.innerHTML = `${item.nome}: <strong><span class="report-number">${count}</span></strong> ${item.tipo === 'unidade' ? 'unidades' : 'porções'}`;
             ul.appendChild(li);
         });
         relatorioContagemMerendeiraDiv.appendChild(ul);
     }
 
-    // Função para zerar dados ao mudar de turno
-    function resetTurnoData() {
+    // Função para zerar dados ao finalizar turno
+    function clearTurnoData() {
         localStorage.removeItem('bauMerendaContagem');
         localStorage.removeItem('bauMerendaNumConfirmacoes');
         localStorage.removeItem('cardapioDoDia');
+        localStorage.removeItem('bauMerendaTurnoAtivo'); // Limpa o turno ativo também!
         cardapioDoDia = [];
         contagemMerenda = {};
         numConfirmacoes = 0;
+        currentActiveTurno = ''; // Reseta a variável local
+        saveAdminData(); // Salva os dados zerados
         carregarCardapioAdmin();
         carregarRelatorioMerendeira();
-        saveAdminData(); // Salva os dados zerados
     }
 
     // Função para marcar o botão de turno ativo
@@ -159,17 +157,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Gerenciamento da UI do Turno Ativo (AGORA LÊ O ESTADO AO CARREGAR) ---
+    function showActiveTurnoState() {
+        if (currentActiveTurno) {
+            turnoAtivoMessageText.innerHTML = `O turno da <strong>${currentActiveTurno}</strong> está ativo. Para iniciar um novo turno, clique em 'Finalizar Turno'.`;
+            turnoAtivoDisplay.style.display = 'block'; // Mostra a mensagem e o botão Finalizar Turno
+            cardapioManagementControls.style.display = 'none'; // Esconde os controles de criação de cardápio
+            // O botão "Finalizar Turno" original não existe mais ou está escondido por CSS
+        } else {
+            turnoAtivoDisplay.style.display = 'none'; // Esconde a mensagem
+            cardapioManagementControls.style.display = 'block'; // Mostra os controles de criação de cardápio
+        }
+    }
+
     // --- Event Listeners ---
 
     // Seleção de Turno diretamente na seção de gerenciamento
-    turnosButtonsAdmin.addEventListener('click', (e) => {
+    turnosButtonsAdminContainer.addEventListener('click', (e) => { // Usando o container com ID
         if (e.target.classList.contains('btn-turno-admin')) {
             const novoTurno = e.target.dataset.turno;
 
             if (novoTurno !== currentActiveTurno) { // Só reseta se o turno realmente mudar
-                resetTurnoData(); // Zera os dados do turno anterior
+                // Não zera os dados aqui, apenas define o turno
                 currentActiveTurno = novoTurno;
-                localStorage.setItem('bauMerendaTurnoAtivo', currentActiveTurno);
                 currentActiveTurnoDisplay.textContent = currentActiveTurno;
                 markActiveTurnoButton(); // Marca o botão de turno ativo
                 saveAdminData(); // Salva o novo turno ativo
@@ -185,24 +195,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!currentActiveTurno) {
             alert('Por favor, selecione o turno que você está gerenciando antes de adicionar itens ao cardápio.');
-            return; // Impede a adição se o turno não estiver selecionado
+            return;
         }
 
         const newItem = {
-            id: Date.now().toString(), // ID único baseado no timestamp
+            id: Date.now().toString(),
             nome: itemName,
             tipo: itemType
         };
         cardapioDoDia.push(newItem);
         saveAdminData();
         carregarCardapioAdmin();
-        addItemForm.reset(); // Limpa o formulário
+        addItemForm.reset();
     });
 
-    // Event listener: Enviar Cardápio (AGORA COM LOGOUT SILENCIOSO E REDIRECIONAMENTO)
+    // Event listener: Enviar Cardápio (SALVA ESTADO E REDIRECIONA PARA INDEX.HTML COM LOGOUT)
     enviarCardapioBtn.addEventListener('click', () => {
-        if (!currentActiveTurno || cardapioDoDia.length === 0) {
-            alert('Por favor, selecione um turno e adicione itens ao cardápio antes de enviá-lo.');
+        if (!currentActiveTurno) {
+            alert('Por favor, selecione um turno antes de enviar o cardápio.');
+            return;
+        }
+        if (cardapioDoDia.length === 0) {
+            alert('Por favor, adicione itens ao cardápio antes de enviá-lo.');
             return;
         }
         saveAdminData(); // Garante que os dados mais recentes estejam salvos
@@ -210,23 +224,28 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'index.html'; // Redireciona para a página inicial
     });
 
-    // Event listener para o botão Finalizar Turno
-    finalizarTurnoBtn.addEventListener('click', () => {
-        // Redireciona para a nova página, os dados já estão salvos e serão zerados ao mudar de turno
-        window.location.href = 'finalizar_turno.html';
+    // Event listener para o botão Finalizar Turno (interno)
+    finalizarTurnoBtnInner.addEventListener('click', () => {
+        if (confirm('Tem certeza que deseja finalizar o turno atual? Isso zerará todos os dados do relatório.')) {
+            clearTurnoData(); // Zera os dados do turno
+            showActiveTurnoState(); // Atualiza a UI para o estado "sem turno ativo"
+            window.location.href = 'finalizar_turno.html'; // Mantém o redirecionamento
+        }
     });
 
     // --- Inicialização ---
-    // Verifica o status de login ao carregar a página
     if (!isLoggedIn()) {
-        window.location.href = 'login_cadastro.html'; // Redireciona se não estiver logado
-        return; // Interrompe a execução do restante do script
+        window.location.href = 'login_cadastro.html';
+        return;
     }
 
     loadAdminData();
-    currentActiveTurnoDisplay.textContent = currentActiveTurno || 'Não definido'; // Atualiza o display do turno
+    currentActiveTurnoDisplay.textContent = currentActiveTurno || 'Não definido';
 
-    carregarCardapioAdmin(); // Carrega o cardápio (e o título)
+    carregarCardapioAdmin();
     carregarRelatorioMerendeira();
-    markActiveTurnoButton(); // Marca o botão de turno ativo na inicialização
+    markActiveTurnoButton();
+
+    // Chama a função para configurar a UI com base no estado do turno ativo ao carregar a página
+    showActiveTurnoState();
 });

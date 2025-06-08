@@ -17,7 +17,7 @@
             <i class="fas fa-arrow-left"></i>
         </a>
         <img src="logo_bau_merenda_clean.png" alt="Logo Baú da Merenda" class="logo-chic">
-        <h1>Painel da Merendeira</h1>
+        <h1>Painel da Equipe da Cozinha</h1>
         <p>Gerencie o cardápio e acompanhe a demanda.</p>
         <nav>
         </nav>
@@ -27,47 +27,47 @@
         <section id="admin-panel-section" style="flex-wrap: wrap; gap: 30px; justify-content: center;">
             <section id="cardapio-gerenciamento-section" class="section-card">
                 <div class="header-cardapio-admin">
-                    <h2>Montar Cardápio do Dia</h2>
+                    <h2>Gerenciamento do Cardápio</h2>
                 </div>
                 
-                <div id="admin-cardapio-message" class="admin-cardapio-message" style="display: none;">
-                    <p id="admin-message-text"></p>
-                    <button id="btn-edit-cardapio" class="btn-chic small-btn secondary" style="display: none;">
-                        <i class="fas fa-edit"></i> Editar Cardápio
-                    </button>
+                <div id="turno-ativo-display" class="info-box" style="display: none;">
+                    <p id="turno-ativo-message-text"></p>
+                    <button id="finalizar-turno-btn-inner" class="btn-chic action-danger">Finalizar Turno</button>
                 </div>
-                <div class="info-box"> 
-                    <p>Qual turno você está gerenciando? (<strong id="current-active-turno-display">Não definido</strong>)</p>
-                    <div class="turnos-buttons-admin">
-                        <button class="btn-turno-admin" data-turno="Manhã">Manhã</button>
-                        <button class="btn-turno-admin" data-turno="Tarde">Tarde</button>
-                        <button class="btn-turno-admin" data-turno="Noite">Noite</button>
+
+                <div id="cardapio-management-controls">
+                    <div class="info-box"> 
+                        <p>Qual turno você está gerenciando? (<strong id="current-active-turno-display">Não definido</strong>)</p>
+                        <div id="turnos-buttons-admin-container" class="turnos-buttons-admin">
+                            <button class="btn-turno-admin" data-turno="Manhã">Manhã</button>
+                            <button class="btn-turno-admin" data-turno="Tarde">Tarde</button>
+                            <button class="btn-turno-admin" data-turno="Noite">Noite</button>
+                        </div>
                     </div>
+                    <div class="info-box"> 
+                        <p>Monte o cardápio!</p>
+                        <form id="add-item-form" class="item-form-content"> 
+                            <input type="text" id="item-nome" placeholder="Nome do Alimento (ex: Arroz)" required>
+                            <select id="item-tipo">
+                                <option value="porcao">Por Porção (ex: Arroz, Feijão)</option>
+                                <option value="unidade">Por Unidade (ex: Ovo Cozido, Banana)</option>
+                            </select>
+                            <button type="submit" id="add-item-btn" class="btn-chic primary">Adicionar Item</button>
+                        </form>
+                    </div>
+                    <div id="cardapio-list-admin">
+                        <p class="section-title-text">Itens adicionados ao cardápio</p>
+                    </div>
+                    <button id="enviar-cardapio-btn" class="btn-chic primary prominent-action">Enviar o Cardápio</button>
                 </div>
-                <div class="info-box"> 
-                    <p>Monte o cardápio!</p>
-                    <form id="add-item-form" class="item-form-content"> 
-                        <input type="text" id="item-nome" placeholder="Nome do Alimento (ex: Arroz)" required>
-                        <select id="item-tipo">
-                            <option value="porcao">Por Porção (ex: Arroz, Feijão)</option>
-                            <option value="unidade">Por Unidade (ex: Ovo Cozido)</option>
-                        </select>
-                        <button type="submit" id="add-item-btn" class="btn-chic primary">Adicionar Item</button>
-                    </form>
-                </div>
-                <div id="cardapio-list-admin">
-                    <p class="section-title-text">Itens adicionados ao cardápio</p>
-                </div>
-                <button id="enviar-cardapio-btn" class="btn-chic primary prominent-action">Enviar o Cardápio</button>
             </section>
 
             <section id="relatorio-section" class="section-card">
-                <h2>Relatório de Merenda do Dia</h2>
+                <h2>Relatório da Merenda</h2>
                 <div id="relatorio-contagem-merendeira" class="info-box">
                     Total de pratos confirmados neste turno: <span class="report-number">0</span><br><br>Contagem por item:<br><br>Nenhum item de merenda foi selecionado ainda.
                 </div>
-                <button id="finalizar-turno-btn" class="btn-chic action-danger">Finalizar Turno</button>
-            </section>
+                </section>
         </section>
     </main>
 

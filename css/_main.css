@@ -132,6 +132,8 @@
     padding: 0 20px; 
 }
 
+/* --- ALTERAÇÕES PARA ALINHAMENTO COMEÇAM AQUI --- */
+
 .section-card {
     background-color: var(--section-background-color); /* Cor de fundo para o card "Monte o seu prato" */
     border: 1px solid var(--border-color); /* Borda cinza muito claro */
@@ -139,11 +141,16 @@
     padding: 35px;
     box-shadow: var(--box-shadow-subtle);
     text-align: center;
-    /* Removido o width: 100%; e max-width: 100%; para permitir o flex-item se ajustar */
-    /* Removido max-width: 450px; e margin: 40px auto; do .section-card para permitir alinhamento horizontal */
     flex: 1; /* Permite que o card se expanda e encolha dentro do flex container */
     min-width: 300px; /* Garante que o card não fique muito pequeno */
     box-sizing: border-box;
+
+    /* Novas propriedades para alinhamento vertical e altura consistente */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* **<<<< ALTERADO AQUI para alinhar pelo topo do conteúdo interno** */
+    align-items: center; /* Centraliza o conteúdo horizontalmente */
+    min-height: 480px; /* **<<<< AJUSTADO AQUI: Aumentado para dar espaço suficiente** */
 }
 
 /* Manter a largura máxima para auth-card se a ideia é que ele seja um popup ou box centralizado */
@@ -151,6 +158,7 @@
     max-width: 450px; /* Largura máxima para a caixa de autenticação */
     margin: 40px auto; /* Centraliza a caixa de autenticação */
     padding: 40px; /* Mais padding para um visual mais "aberto" */
+    min-height: auto; /* Não aplica min-height fixo para auth-card */
 }
 
 .section-card h2 {
@@ -415,7 +423,28 @@
 /* *** FIM DA ALTERAÇÃO ANTERIOR *** */
 
 /* NOVO: Estilo para a mensagem de turno ativo (será injetada dinamicamente) */
-.turno-ativo-message-text {
+/* **<<<< AQUI AJUSTADO PARA GARANTIR ALINHAMENTO INTERNO E ALTURA ** */
+#turno-ativo-display { /* Usando o ID do HTML que você me forneceu */
+    background-color: var(--info-box-bg); /* Use a variável de info-box-bg para consistência */
+    border: 1px solid var(--primary-color); /* Uma borda mais proeminente */
+    border-radius: 5px;
+    padding: 30px; /* Mais padding para centralizar bem */
+    /* margin: auto; Removido, o flexbox do pai gerencia */
+    font-size: 1.1em;
+    color: var(--text-dark);
+    text-align: center;
+    box-shadow: var(--shadow-light);
+    
+    /* Propriedades Flexbox para centralizar o conteúdo verticalmente */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza o conteúdo verticalmente dentro do display */
+    align-items: center; /* Centraliza o conteúdo horizontalmente dentro do display */
+    height: 100%; /* Garante que o display ocupe a altura total do section-card pai */
+    box-sizing: border-box; /* Garante que padding não aumente o tamanho total */
+}
+
+.turno-ativo-message-text { /* Esta é a classe do texto DENTRO do #turno-ativo-display */
     text-align: center;
     font-size: 1.1em;
     color: var(--primary-color); /* Usa a cor primária para destaque */
@@ -426,13 +455,13 @@
     box-shadow: var(--box-shadow-subtle); /* Sombra suave */
     margin-top: 20px; /* Margem superior para separar de outros elementos */
     line-height: 1.5; /* Altura da linha para melhor leitura */
-    display: none; /* Inicia escondida, JS controlará a visibilidade */
+    /* display: none; Inicia escondida, JS controlará a visibilidade - Esta propriedade não deve estar no CSS diretamente se o JS controla o display do elemento pai. O display: none é para o #turno-ativo-display */
 }
 
 .turno-ativo-message-text strong {
     color: var(--secondary-color); /* Destaca o nome do turno */
 }
-/* *** FIM DA NOVA ALTERAÇÃO *** */
+/* *** FIM DA NOVA ALTERAÇÃO DO TURNO ATIVO *** */
 
 /* Botão "Mudar Turno" no admin */
 .btn-chic.small-btn {
@@ -577,7 +606,7 @@
     flex-wrap: wrap;
     gap: 30px;
     justify-content: center;
-    align-items: flex-start;
+    align-items: flex-start; /* Mantém alinhamento pelo topo para os cards irmãos */
 }
 
 #turno-selection-section {
@@ -594,11 +623,21 @@
 #cardapio-gerenciamento-section {
     flex: 1;
     min-width: 400px;
+    /* Adicionado para garantir o alinhamento vertical do conteúdo, similar ao .section-card pai */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza o conteúdo dentro desta seção */
+    align-items: center;
 }
 
 #relatorio-section {
     flex: 1;
     min-width: 400px;
+    /* Adicionado para garantir o alinhamento vertical do conteúdo, similar ao .section-card pai */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza o conteúdo dentro desta seção */
+    align-items: center;
 }
 
 /* Remover propriedades de caixinha de classes que não devem mais ter,
@@ -623,6 +662,8 @@
     box-shadow: var(--box-shadow-subtle); /* Sombra da lista */
     min-height: 80px; /* Adicionado um mínimo de altura para garantir que a caixa tenha espaço */
     overflow: visible; /* Garante que nada seja cortado se o conteúdo exceder a altura */
+    width: 100%; /* Garante que ocupe a largura completa do card */
+    box-sizing: border-box; /* Inclui padding na largura */
 }
 
 /* Container para os itens que o JS vai adicionar */
@@ -821,6 +862,7 @@
         min-width: unset;
         width: 95%;
         max-width: 100%; 
+        min-height: auto; /* **<<<< AJUSTADO AQUI: Remove a altura mínima fixa em telas menores** */
     }
 
     /* Ajustes para o auth-card e seções em telas menores */
@@ -862,6 +904,7 @@
     #cardapio-gerenciamento-section, #relatorio-section, .turno-gerenciamento-section {
         min-width: unset;
         width: 100%;
+        min-height: auto; /* **<<<< AJUSTADO AQUI: Remove a altura mínima fixa em telas menores** */
     }
     .header-cardapio-admin {
         flex-direction: column;
