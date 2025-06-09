@@ -20,38 +20,50 @@ document.addEventListener('DOMContentLoaded', () => {
         authMessage.textContent = ''; // Limpa mensagens anteriores
     }
 
-    // --- Funções de Local Storage para Usuário Admin ---
+    // --- Funções de Local Storage para Usuários Admin (AGORA MÚLTIPLOS) ---
     // Usamos btoa para uma codificação simples, NÃO É CRIPTOGRAFIA SEGURA PARA PRODUÇÃO
-    function saveAdminUser(username, password) {
+    
+    /**
+     * Obtém a lista de usuários armazenada no localStorage.
+     * Retorna um array vazio se não houver usuários.
+     */
+    function getUsers() {
         try {
-            localStorage.setItem('adminUser', username);
-            localStorage.setItem('adminPass', btoa(password)); // Codifica em Base64
-            return true;
+            const usersJson = localStorage.getItem('adminUsers');
+            return usersJson ? JSON.parse(usersJson) : [];
         } catch (e) {
-            console.error('Erro ao salvar usuário no localStorage:', e);
-            return false;
+            console.error('Erro ao ler usuários do localStorage:', e);
+            return [];
         }
     }
 
-    function getAdminUser() {
-        const username = localStorage.getItem('adminUser');
-        const password = localStorage.getItem('adminPass');
-        return { username, password: password ? atob(password) : null }; // Decodifica Base64
-    }
-
-    function setLoggedInStatus(isLoggedIn) {
-        localStorage.setItem('isMerendeiraLoggedIn', isLoggedIn ? 'true' : 'false');
+    /**
+     * Salva a lista completa de usuários no localStorage.
+     */
+    function saveUsers(users) {
+        try {
+            localStorage.setItem('adminUsers', JSON.stringify(users));
+            return true;
+        } catch (e) {
+            console.error('Erro ao salvar usuários no localStorage:', e);
+            return false;
+        }
     }
 
     // --- NOVO: Função de Validação de Senha ---
     function validatePassword(password) {
         // Expressão Regular:
-        // ^                  -> Início da string
-        // (?=.*[a-zA-Z])     -> Pelo menos uma letra (maiúscula ou minúscula)
-        // (?=.*\d)           -> Pelo menos um número
-        // [a-zA-Z0-9]{8,}    -> Apenas letras e números, e no mínimo 8 caracteres
+        // ^                 -> Início da string
+        // (?=.*[a-zA-Z])    -> Pelo menos uma letra (maiúscula ou minúscula)
+        // (?=.*\d)          -> Pelo menos um número
+        // [a-zA-Z0-9]{8,}   -> Apenas letras e números, e no mínimo 8 caracteres
+        // $                 -> Fim da string
         const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{8,}$/;
         return passwordRegex.test(password);
+    }
+
+    function setLoggedInStatus(isLoggedIn) {
+        localStorage.setItem('isMerendeiraLoggedIn', isLoggedIn ? 'true' : 'false');
     }
 
     // --- Lógica de Autenticação ---
@@ -76,14 +88,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const existingUser = getAdminUser();
-        if (existingUser.username) {
-            authMessage.textContent = 'Já existe um usuário cadastrado. Por favor, faça login ou use a recuperação de senha.';
+        let users = getUsers();
+        // Verifica se o usuário já existe na lista
+        const userExists = users.some(user => user.username === username);
+
+        if (userExists) {
+            authMessage.textContent = 'Este nome de usuário já está em uso. Escolha outro.';
             authMessage.style.color = 'var(--error-red)';
             return;
         }
 
-        if (saveAdminUser(username, password)) {
+        // Adiciona o novo usuário à lista
+        users.push({ username: username, password: btoa(password) }); // Codifica a senha
+
+        if (saveUsers(users)) {
             authMessage.textContent = 'Cadastro realizado com sucesso! Agora você pode fazer login.';
             authMessage.style.color = 'var(--accent-color)';
             cadastroForm.reset();
@@ -100,9 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = document.getElementById('login-usuario').value;
         const password = document.getElementById('login-senha').value;
 
-        const storedUser = getAdminUser();
+        const users = getUsers();
+        // Procura pelo usuário e valida a senha
+        const foundUser = users.find(user => 
+            user.username === username && atob(user.password) === password
+        );
 
-        if (storedUser.username === username && storedUser.password === password) {
+        if (foundUser) {
             setLoggedInStatus(true);
             authMessage.textContent = 'Login bem-sucedido! Redirecionando...';
             authMessage.style.color = 'var(--primary-color)';
@@ -121,9 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const newPassword = document.getElementById('nova-senha').value;
         const confirmNewPassword = document.getElementById('confirmar-nova-senha').value;
 
-        const storedUser = getAdminUser();
+        let users = getUsers();
+        // Encontra o índice do usuário na lista
+        const userIndex = users.findIndex(user => user.username === username);
 
-        if (storedUser.username !== username) {
+        if (userIndex === -1) {
             authMessage.textContent = 'Usuário não encontrado.';
             authMessage.style.color = 'var(--error-red)';
             return;
@@ -142,7 +166,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        if (saveAdminUser(username, newPassword)) {
+        // Atualiza a senha do usuário na lista
+        users[userIndex].password = btoa(newPassword);
+
+        if (saveUsers(users)) {
             authMessage.textContent = 'Senha alterada com sucesso! Faça login com a nova senha.';
             authMessage.style.color = 'var(--accent-color)';
             recuperarSenhaForm.reset();
@@ -160,13 +187,13 @@ document.addEventListener('DOMContentLoaded', () => {
     showRecuperarSenhaBtn.addEventListener('click', () => showForm(recuperarSenhaForm));
     hideRecuperarSenhaBtn.addEventListener('click', () => showForm(loginForm));
 
-    // --- Inicialização: Verifica se já há um usuário cadastrado ---
-    const storedUser = getAdminUser();
-    if (storedUser.username) {
-        showForm(loginForm); // Se já tem usuário, exibe o formulário de login
+    // --- Inicialização: Verifica se já há usuários cadastrados ---
+    const existingUsers = getUsers();
+    if (existingUsers.length > 0) {
+        showForm(loginForm); // Se já tem usuários, exibe o formulário de login
     } else {
-        showForm(cadastroForm); // Se não tem usuário, exibe o formulário de cadastro
-        authMessage.textContent = 'Bem-vindo(a)! Por favor, cadastre um usuário administrador.';
+        showForm(cadastroForm); // Se não tem usuários, exibe o formulário de cadastro
+        authMessage.textContent = 'Bem-vindo(a)! Por favor, cadastre seu primeiro usuário administrador.';
         authMessage.style.color = 'var(--primary-color)';
     }
 

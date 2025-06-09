@@ -61,7 +61,7 @@
     text-decoration: none; /* Remove sublinhado padrão de links */
     box-shadow: var(--shadow-soft); /* Sombra suave */
     transition: all var(--transition-speed-fast); /* Transição suave para hover */
-    z-index: 10; /* Garante que fique acima de outros elementos se houver sobreposição */
+    z-index: 10; /* Garante que ele fique acima de outros elementos se houver sobreposição */
 }
 
 .back-to-home-btn:hover {
@@ -142,15 +142,21 @@
     box-shadow: var(--box-shadow-subtle);
     text-align: center;
     flex: 1; /* Permite que o card se expanda e encolha dentro do flex container */
-    min-width: 300px; /* Garante que o card não fique muito pequeno */
+    
+    /* ***** ALTERAÇÃO SOLICITADA AQUI: AUMENTANDO A LARGURA MÍNIMA ***** */
+    min-width: 400px; /* Ajustado de 300px para 400px para ser mais larga */
+    
     box-sizing: border-box;
 
-    /* Novas propriedades para alinhamento vertical e altura consistente */
+    /* Propriedades para alinhar verticalmente e altura consistente */
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* **<<<< ALTERADO AQUI para alinhar pelo topo do conteúdo interno** */
-    align-items: center; /* Centraliza o conteúdo horizontalmente */
-    min-height: 480px; /* **<<<< AJUSTADO AQUI: Aumentado para dar espaço suficiente** */
+    justify-content: flex-start; 
+    align-items: center; 
+    min-height: 480px; 
+    
+    width: auto; /* Permite que ocupe a largura que precisar dentro do main-content */
+    max-width: 600px; /* Definindo uma largura máxima razoável para o card */
 }
 
 /* Manter a largura máxima para auth-card se a ideia é que ele seja um popup ou box centralizado */
@@ -172,9 +178,10 @@
 /* Estilo para itens do cardápio do aluno (sem imagem) */
 .itens-grid-chic {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
     gap: 25px;
     margin-bottom: 30px;
+    width: 100%; /* Garante que ocupe a largura total disponível do .section-card */
 }
 
 .item-merenda-chic {
@@ -192,6 +199,7 @@
     justify-content: center;
     align-items: center;
     min-height: 120px;
+    min-width: 100px; /* Mantém a largura mínima do item consistente com o grid */
 }
 
 .item-merenda-chic:hover {
@@ -423,43 +431,34 @@
 /* *** FIM DA ALTERAÇÃO ANTERIOR *** */
 
 /* NOVO: Estilo para a mensagem de turno ativo (será injetada dinamicamente) */
-/* **<<<< AQUI AJUSTADO PARA GARANTIR ALINHAMENTO INTERNO E ALTURA ** */
 #turno-ativo-display { /* Usando o ID do HTML que você me forneceu */
     background-color: var(--info-box-bg); /* Use a variável de info-box-bg para consistência */
     border: 1px solid var(--primary-color); /* Uma borda mais proeminente */
     border-radius: 5px;
     padding: 30px; /* Mais padding para centralizar bem */
-    /* margin: auto; Removido, o flexbox do pai gerencia */
-    font-size: 1.1em;
-    color: var(--text-dark);
-    text-align: center;
-    box-shadow: var(--shadow-light);
-    
-    /* Propriedades Flexbox para centralizar o conteúdo verticalmente */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centraliza o conteúdo verticalmente dentro do display */
-    align-items: center; /* Centraliza o conteúdo horizontalmente dentro do display */
-    height: 100%; /* Garante que o display ocupe a altura total do section-card pai */
-    box-sizing: border-box; /* Garante que padding não aumente o tamanho total */
+    justify-content: center; 
+    align-items: center; 
+    height: 100%; 
+    box-sizing: border-box; 
 }
 
 .turno-ativo-message-text { /* Esta é a classe do texto DENTRO do #turno-ativo-display */
     text-align: center;
     font-size: 1.1em;
-    color: var(--primary-color); /* Usa a cor primária para destaque */
+    color: var(--primary-color); 
     font-weight: 600;
-    padding: 20px 10px; /* Espaçamento interno para a mensagem */
-    background-color: var(--background-white); /* Fundo branco para se destacar */
-    border-radius: var(--border-radius-soft); /* Bordas arredondadas */
-    box-shadow: var(--box-shadow-subtle); /* Sombra suave */
-    margin-top: 20px; /* Margem superior para separar de outros elementos */
-    line-height: 1.5; /* Altura da linha para melhor leitura */
-    /* display: none; Inicia escondida, JS controlará a visibilidade - Esta propriedade não deve estar no CSS diretamente se o JS controla o display do elemento pai. O display: none é para o #turno-ativo-display */
+    padding: 20px 10px; 
+    background-color: var(--background-white); 
+    border-radius: var(--border-radius-soft); 
+    box-shadow: var(--box-shadow-subtle); 
+    margin-top: 20px; 
+    line-height: 1.5; 
 }
 
 .turno-ativo-message-text strong {
-    color: var(--secondary-color); /* Destaca o nome do turno */
+    color: var(--secondary-color); 
 }
 /* *** FIM DA NOVA ALTERAÇÃO DO TURNO ATIVO *** */
 
@@ -492,28 +491,28 @@
 
 /* Classe genérica para caixinhas de informação */
 .info-box {
-    background-color: var(--background-white); /* Fundo branco para se destacar no card */
-    border: 1px solid var(--border-color); /* Borda suave */
-    border-radius: var(--border-radius-soft); /* Bordas arredondadas */
-    padding: 20px; /* Espaçamento interno */
-    margin-top: 20px; /* Espaçamento superior */
-    margin-bottom: 25px; /* Espaçamento inferior para separar blocos */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra sutil para profundidade */
-    width: 100%; /* Ocupa a largura total disponível */
-    box-sizing: border-box; /* Garante que padding não aumente a largura total */
-    text-align: center; /* Centraliza o conteúdo da caixa por padrão */
+    background-color: var(--background-white); 
+    border: 1px solid var(--border-color); 
+    border-radius: var(--border-radius-soft); 
+    padding: 20px; 
+    margin-top: 20px; 
+    margin-bottom: 25px; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
+    width: 100%; 
+    box-sizing: border-box; 
+    text-align: center; 
 }
 
 /* Relatório Final do Turno */
 #relatorio-final-display {
-    text-align: left; /* Mantém o alinhamento esquerdo do texto do relatório */
-    margin-bottom: 30px; /* Garante espaçamento após o relatório */
-    padding: 25px; /* Aumenta um pouco o padding para o conteúdo */
+    text-align: left; 
+    margin-bottom: 30px; 
+    padding: 25px; 
 }
 
 #report-text-content p {
     font-size: 1.05em;
-    margin-bottom: 10px; /* Espaçamento entre os parágrafos */
+    margin-bottom: 10px; 
     line-height: 1.5;
     color: var(--text-dark);
 }
@@ -524,13 +523,13 @@
 
 /* Container do gráfico no relatório final */
 .chart-container-final {
-    width: 100%; /* Ocupa a largura total da div pai */
-    height: 280px; /* Aumenta a altura para o gráfico ser mais visível */
-    margin-top: 25px; /* Mais espaço acima do gráfico */
-    background-color: var(--gray-light); /* Fundo claro para o gráfico */
+    width: 100%; 
+    height: 280px; 
+    margin-top: 25px; 
+    background-color: var(--gray-light); 
     border-radius: var(--border-radius-soft);
-    padding: 15px; /* Adiciona um pouco de padding interno */
-    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.03); /* Sombra interna sutil */
+    padding: 15px; 
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.03); 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -538,12 +537,12 @@
 
 /* CORREÇÃO AQUI: Garante que o canvas do gráfico seja responsivo dentro do seu container */
 #finalMerendaChart {
-    max-width: 100%; /* Garante que o gráfico não exceda a largura do seu container */
-    height: auto; /* Mantém a proporção do gráfico */
+    max-width: 100%; 
+    height: auto; 
 }
 
 .info-box p {
-    font-size: 1.05em; /* Tamanho da fonte para o texto comum dentro da caixa */
+    font-size: 1.05em; 
     margin-top: 0;
     margin-bottom: 15px;
     color: var(--text-dark);
@@ -606,7 +605,7 @@
     flex-wrap: wrap;
     gap: 30px;
     justify-content: center;
-    align-items: flex-start; /* Mantém alinhamento pelo topo para os cards irmãos */
+    align-items: flex-start; 
 }
 
 #turno-selection-section {
@@ -623,20 +622,18 @@
 #cardapio-gerenciamento-section {
     flex: 1;
     min-width: 400px;
-    /* Adicionado para garantir o alinhamento vertical do conteúdo, similar ao .section-card pai */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centraliza o conteúdo dentro desta seção */
+    justify-content: center; 
     align-items: center;
 }
 
 #relatorio-section {
     flex: 1;
     min-width: 400px;
-    /* Adicionado para garantir o alinhamento vertical do conteúdo, similar ao .section-card pai */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centraliza o conteúdo dentro desta seção */
+    justify-content: center; 
     align-items: center;
 }
 
@@ -653,37 +650,37 @@
 /* MODIFICAÇÃO IMPORTANTE AQUI: Ajustes para o padding da lista e dos itens */
 #cardapio-list-admin {
     display: flex;
-    flex-direction: column; /* Garante que os itens (e o título) fiquem em coluna */
+    flex-direction: column; 
     margin-top: 20px;
-    padding: 20px; /* Aumentado o padding para afastar mais das bordas da caixa */
-    border: 1px solid var(--border-color); /* Borda da lista */
-    border-radius: var(--border-radius-soft); /* Bordas arredondadas da lista */
-    background-color: var(--background-white); /* Fundo da lista */
-    box-shadow: var(--box-shadow-subtle); /* Sombra da lista */
-    min-height: 80px; /* Adicionado um mínimo de altura para garantir que a caixa tenha espaço */
-    overflow: visible; /* Garante que nada seja cortado se o conteúdo exceder a altura */
-    width: 100%; /* Garante que ocupe a largura completa do card */
-    box-sizing: border-box; /* Inclui padding na largura */
+    padding: 20px; 
+    border: 1px solid var(--border-color); 
+    border-radius: var(--border-radius-soft); 
+    background-color: var(--background-white); 
+    box-shadow: var(--box-shadow-subtle); 
+    min-height: 80px; 
+    overflow: visible; 
+    width: 100%; 
+    box-sizing: border-box; 
 }
 
 /* Container para os itens que o JS vai adicionar */
 .item-list-container {
     display: flex;
     flex-direction: column;
-    gap: 12px; /* Espaçamento entre os itens */
+    gap: 12px; 
 }
 
 .cardapio-item-admin {
     background-color: var(--gray-light); 
     border: 1px solid var(--border-color); 
     border-radius: calc(var(--border-radius-soft) / 2);
-    padding: 12px; /* Apenas padding vertical e um padding geral para o conteúdo interno do item */
+    padding: 12px; 
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 1.05em;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03); 
-    text-align: left; /* Garante que o texto dentro do item alinhe à esquerda */
+    text-align: left; 
 }
 
 /* Remove a margem inferior do último item para não adicionar espaço desnecessário */
@@ -696,7 +693,7 @@
     flex-grow: 1;
     font-weight: 500;
     color: var(--text-dark);
-    margin-right: 15px; /* Espaço entre o texto e o botão */
+    margin-right: 15px; 
 }
 
 .cardapio-item-admin .item-type {
@@ -729,9 +726,9 @@
     font-size: 1.1em;
     color: var(--text-dark); 
     font-weight: 500;
-    text-align: left; /* Mantém o alinhamento esquerdo específico para o relatório */
-    margin-top: 20px; /* Mantém o espaçamento superior */
-    margin-bottom: 20px; /* Garante espaçamento para o botão */
+    text-align: left; 
+    margin-top: 20px; 
+    margin-bottom: 20px; 
 }
 
 #relatorio-contagem-merendeira strong {
@@ -749,10 +746,10 @@
 
 /* Para os números no relatório */
 #relatorio-contagem-merendeira .report-number {
-    font-family: var(--simple-number-font); /* Aplica a nova fonte */
-    font-size: 1.2em; /* Pode ajustar o tamanho se quiser um pouco maior */
-    color: var(--primary-color); /* Mantenha a cor para consistência com o strong */
-    font-weight: 700; /* Garante que os números se destaquem */
+    font-family: var(--simple-number-font); 
+    font-size: 1.2em; 
+    color: var(--primary-color); 
+    font-weight: 700; 
 }
 
 
@@ -829,59 +826,60 @@
     }
     /* Para o botão no cabeçalho em telas pequenas */
     .admin-access-header {
-        position: static; /* Remove o posicionamento absoluto em telas menores */
-        margin: 15px auto 0; /* Centraliza e adiciona margem */
+        position: static; 
+        margin: 15px auto 0; 
         text-align: center;
         width: 100%;
     }
     .admin-access-header .btn-chic {
-        display: block; /* Ocupa a largura total para ser mais fácil de clicar */
-        width: fit-content; /* Se ajusta ao conteúdo */
-        margin: 0 auto; /* Centraliza o botão */
+        display: block; 
+        width: fit-content; 
+        margin: 0 auto; 
     }
 
     .header-modern-chic {
-        padding-left: 70px; /* Adiciona um padding para o botão de voltar */
+        padding-left: 70px; 
         padding-right: 0; 
     }
 
     /* Responsividade para o botão de voltar */
     .back-to-home-btn {
-        top: 15px; /* Ajusta a posição no topo */
-        left: 15px; /* Ajusta a posição na esquerda */
-        width: 38px; /* DIMINUÍDO AINDA MAIS O TAMANHO EM TELAS PEQUENAS */
+        top: 15px; 
+        left: 15px; 
+        width: 38px; 
         height: 38px;
-        font-size: 1.1em; /* DIMINUÍDO AINDA MAIS O TAMANHO DA SETA EM TELAS PEQUENAS */
+        font-size: 1.1em; 
     }
     .main-content-modern-chic {
-        flex-direction: column; /* Volta para column em telas menores */
+        flex-direction: column; 
     }
 
     .section-card {
         padding: 25px;
-        min-width: unset;
-        width: 95%;
+        min-width: unset; /* Remove min-width fixo em telas pequenas */
+        width: 95%; 
         max-width: 100%; 
-        min-height: auto; /* **<<<< AJUSTADO AQUI: Remove a altura mínima fixa em telas menores** */
+        min-height: auto; 
     }
 
     /* Ajustes para o auth-card e seções em telas menores */
     .section-card.auth-card,
-    .section-card { /* Adicionado para afetar a seção de finalizar turno também */
-        padding: 25px; /* Reduz o padding em telas menores */
-        margin: 30px auto; /* Ajusta a margem */
-        max-width: 90%; /* Permite que ocupe mais espaço em telas menores */
+    .section-card { 
+        padding: 25px; 
+        margin: 30px auto; 
+        max-width: 90%; 
     }
 
     .section-card h2 {
         font-size: 1.8em;
     }
     .itens-grid-chic {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); 
         gap: 15px;
     }
     .item-merenda-chic {
         min-height: 100px;
+        min-width: 90px; 
     }
     .item-merenda-chic p {
         font-size: 1.1em;
@@ -904,7 +902,7 @@
     #cardapio-gerenciamento-section, #relatorio-section, .turno-gerenciamento-section {
         min-width: unset;
         width: 100%;
-        min-height: auto; /* **<<<< AJUSTADO AQUI: Remove a altura mínima fixa em telas menores** */
+        min-height: auto; 
     }
     .header-cardapio-admin {
         flex-direction: column;
@@ -921,7 +919,7 @@
     }
     .auth-form input[type="text"],
     .auth-form input[type="password"] {
-        width: 100%; /* Ajustado para 100% da caixa */
+        width: 100%; 
         max-width: 300px;
         margin-left: auto;
         margin-right: auto;
@@ -930,11 +928,11 @@
 
 /* Cabeçalho dos formulários de autenticação */
 .auth-form h2 {
-    font-size: 2em; /* Tamanho do título para os formulários de login/cadastro */
-    margin-bottom: 20px; /* Espaçamento abaixo do título */
-    color: var(--primary-color); /* Cor do título */
-    text-align: center; /* Centraliza o título */
-    width: 100%; /* Garante que o título ocupe a largura completa do formulário */
+    font-size: 2em; 
+    margin-bottom: 20px; 
+    color: var(--primary-color); 
+    text-align: center; 
+    width: 100%; 
 }
 
 .header-cardapio-admin {
@@ -995,25 +993,25 @@
 
 .password-hint {
     display: block;
-    max-width: 350px; /* Mantém a largura do input */
-    width: 100%; /* Ocupa a largura total do container */
-    margin-top: -5px; /* Puxa para cima para ficar mais próximo do input */
-    margin-bottom: 15px; /* Espaçamento após a dica */
+    max-width: 350px; 
+    width: 100%; 
+    margin-top: -5px; 
+    margin-bottom: 15px; 
     color: var(--text-dark); 
     font-size: 0.85em;
-    text-align: left; /* Alinha o texto à esquerda */
-    box-sizing: border-box; /* Inclui padding na largura */
-    padding-left: 10px; /* Pequeno padding para alinhar com o texto do placeholder */
+    text-align: left; 
+    box-sizing: border-box; 
+    padding-left: 10px; 
 }
 
 /* Para o pequeno texto de descrição em "Recuperar Senha" */
 .small-text {
     font-size: 0.95em;
     color: var(--text-dark);
-    margin-bottom: 20px; /* Espaço abaixo do texto */
-    text-align: center; /* Centraliza o texto */
+    margin-bottom: 20px; 
+    text-align: center; 
     line-height: 1.4;
-    max-width: 350px; /* Alinha com a largura dos inputs */
+    max-width: 350px; 
     width: 100%;
 }
 
@@ -1024,36 +1022,36 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--primary-color); /* Fundo marrom principal */
-    color: var(--text-light); /* Texto branco */
+    background-color: var(--primary-color); 
+    color: var(--text-light); 
     padding: 20px 30px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
-    z-index: 1000; /* Garante que fique acima de tudo */
-    opacity: 0; /* Começa invisível */
-    visibility: hidden; /* Garante que não seja interativo quando invisível */
-    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; /* Transição suave */
+    z-index: 1000; 
+    opacity: 0; 
+    visibility: hidden; 
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; 
     text-align: center;
     font-weight: bold;
     font-size: 1.2em;
-    max-width: 80%; /* Largura máxima para responsividade */
-    min-width: 280px; /* Largura mínima para garantir legibilidade */
-    box-sizing: border-box; /* Garante que o padding não aumente a largura */
+    max-width: 80%; 
+    min-width: 280px; 
+    box-sizing: border-box; 
 }
 
 /* Estado visível do pop-up */
 .popup-message.show {
-    opacity: 1; /* Torna visível */
-    visibility: visible; /* Torna interativo */
+    opacity: 1; 
+    visibility: visible; 
 }
 
 /* Estilo para o pop-up de login (se você o tiver, para padronização) */
 #login-popup {
-    background-color: var(--background-white); /* Fundo branco para o login */
-    color: var(--text-dark); /* Texto escuro para o login */
+    background-color: var(--background-white); 
+    color: var(--text-dark); 
     padding: 30px;
     max-width: 320px; 
-    min-width: 250px; /* Ajuste se necessário */
+    min-width: 250px; 
     width: 90%; 
 }
 
@@ -1083,9 +1081,9 @@
 .section-title-text {
     font-size: 1.05em; 
     margin-top: 0; 
-    margin-bottom: 15px; /* Espaçamento inferior para separar o título dos itens da lista */
+    margin-bottom: 15px; 
     color: var(--text-dark); 
-    text-align: center; /* <<< ALTERADO AQUI PARA CENTRALIZAR O TEXTO */
+    text-align: center; 
     width: 100%; 
     font-weight: 600; 
     display: block; 
