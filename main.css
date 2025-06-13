@@ -68,7 +68,7 @@
     background-color: var(--secondary-color-dark); /* Cor mais escura no hover */
     color: var(--text-light); /* Texto branco no hover */
     transform: translateY(-2px); /* Efeito de "levantar" no hover */
-    box-shadow: var(--shadow-medium); /* Sombra mais pronunciada no hover */
+    box-shadow: var(--shadow-medium);
 }
 
 .logo-chic {
@@ -124,7 +124,7 @@
     width: 90%;
     max-width: 1200px;
     display: flex;
-    flex-direction: row; /* ALTERADO PARA ROW */
+    flex-direction: row; 
     flex-wrap: wrap; /* Adicionado para quebrar a linha se não houver espaço */
     gap: 30px;
     justify-content: center;
@@ -132,31 +132,29 @@
     padding: 0 20px; 
 }
 
-/* --- ALTERAÇÕES PARA ALINHAMENTO COMEÇAM AQUI --- */
+/* --- ALTERAÇÕES PARA ALINHAMENTO E TAMANHO COMEÇAM AQUI --- */
 
 .section-card {
-    background-color: var(--section-background-color); /* Cor de fundo para o card "Monte o seu prato" */
-    border: 1px solid var(--border-color); /* Borda cinza muito claro */
+    background-color: var(--section-background-color); 
+    border: 1px solid var(--border-color); 
     border-radius: var(--border-radius-soft);
     padding: 35px;
     box-shadow: var(--box-shadow-subtle);
     text-align: center;
-    flex: 1; /* Permite que o card se expanda e encolha dentro do flex container */
     
-    /* ***** ALTERAÇÃO SOLICITADA AQUI: AUMENTANDO A LARGURA MÍNIMA ***** */
-    min-width: 400px; /* Ajustado de 300px para 400px para ser mais larga */
+    /* Regras de largura para garantir um tamanho padrão */
+    width: 48%; /* Tenta ocupar quase metade da largura do main-content */
+    min-width: 900px; /* Largura MÍNIMA garantida (mesmo com pouco conteúdo) */
+    max-width: 1200px; /* Largura MÁXIMA para não ficar gigante em telas muito grandes */
     
     box-sizing: border-box;
 
     /* Propriedades para alinhar verticalmente e altura consistente */
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; 
+    justify-content: flex-start; /* Alinha o conteúdo ao topo do card */
     align-items: center; 
-    min-height: 480px; 
-    
-    width: auto; /* Permite que ocupe a largura que precisar dentro do main-content */
-    max-width: 600px; /* Definindo uma largura máxima razoável para o card */
+    min-height: 480px; /* Garante uma altura mínima para o card */
 }
 
 /* Manter a largura máxima para auth-card se a ideia é que ele seja um popup ou box centralizado */
@@ -165,6 +163,8 @@
     margin: 40px auto; /* Centraliza a caixa de autenticação */
     padding: 40px; /* Mais padding para um visual mais "aberto" */
     min-height: auto; /* Não aplica min-height fixo para auth-card */
+    width: 90%; /* Ajuste para auth-card em telas maiores para ser mais flexível */
+    min-width: 300px; /* Largura mínima para auth-card */
 }
 
 .section-card h2 {
@@ -182,6 +182,9 @@
     gap: 25px;
     margin-bottom: 30px;
     width: 100%; /* Garante que ocupe a largura total disponível do .section-card */
+    max-width: calc(100% - 40px); /* Ajusta a largura máxima para quase 100% com padding */
+    padding: 0 20px; /* Adiciona padding lateral interno para os itens não colarem nas bordas */
+    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
 }
 
 .item-merenda-chic {
@@ -417,7 +420,7 @@
     transform: translateY(-2px);
 }
 
-/* *** ALTERAÇÃO ANTERIOR AQUI: Botão de "Enviar Cardápio" para Verde *** */
+/* Botão de "Enviar Cardápio" para Verde */
 #enviar-cardapio-btn {
     background-color: var(--action-success); /* Cor verde para o botão de enviar */
     color: var(--text-light); /* Cor do texto branco */
@@ -428,7 +431,6 @@
     transform: translateY(-2px);
     box-shadow: var(--shadow-medium);
 }
-/* *** FIM DA ALTERAÇÃO ANTERIOR *** */
 
 /* NOVO: Estilo para a mensagem de turno ativo (será injetada dinamicamente) */
 #turno-ativo-display { /* Usando o ID do HTML que você me forneceu */
@@ -442,6 +444,14 @@
     align-items: center; 
     height: 100%; 
     box-sizing: border-box; 
+
+    /* === NOVAS REGRAS PARA O TAMANHO DO #turno-ativo-display === */
+    width: 48%; /* Para seguir o mesmo padrão do .section-card, ocupa quase metade */
+    min-width: 450px; /* Largura MÍNIMA garantida */
+    max-width: 600px; /* Largura MÁXIMA */
+    margin: 0 auto; /* Centraliza ele no container pai, se necessário */
+    min-height: 480px; /* Garante que ele também tenha uma altura mínima consistente */
+    /* === FIM DAS NOVAS REGRAS === */
 }
 
 .turno-ativo-message-text { /* Esta é a classe do texto DENTRO do #turno-ativo-display */
@@ -460,7 +470,6 @@
 .turno-ativo-message-text strong {
     color: var(--secondary-color); 
 }
-/* *** FIM DA NOVA ALTERAÇÃO DO TURNO ATIVO *** */
 
 /* Botão "Mudar Turno" no admin */
 .btn-chic.small-btn {
@@ -535,7 +544,7 @@
     justify-content: center;
 }
 
-/* CORREÇÃO AQUI: Garante que o canvas do gráfico seja responsivo dentro do seu container */
+/* Garante que o canvas do gráfico seja responsivo dentro do seu container */
 #finalMerendaChart {
     max-width: 100%; 
     height: auto; 
@@ -688,7 +697,6 @@
     margin-bottom: 0;
 }
 
-
 .cardapio-item-admin .item-info {
     flex-grow: 1;
     font-weight: 500;
@@ -751,7 +759,6 @@
     color: var(--primary-color); 
     font-weight: 700; 
 }
-
 
 /* Gráfico */
 .chart-container {
@@ -854,20 +861,30 @@
         flex-direction: column; 
     }
 
+    /* === ALTERAÇÕES PARA O section-card E turno-ativo-display EM MOBILE === */
     .section-card {
         padding: 25px;
         min-width: unset; /* Remove min-width fixo em telas pequenas */
+        width: 95%; /* Ocupa a maior parte da tela em mobile */
+        max-width: 100%; /* Garante que não ultrapasse 100% */
+        min-height: auto; /* Remove min-height fixo em telas pequenas */
+    }
+
+    #turno-ativo-display {
+        min-width: unset; 
         width: 95%; 
         max-width: 100%; 
         min-height: auto; 
     }
+    /* === FIM DAS ALTERAÇÕES PARA MOBILE === */
 
     /* Ajustes para o auth-card e seções em telas menores */
-    .section-card.auth-card,
-    .section-card { 
+    .section-card.auth-card { 
         padding: 25px; 
         margin: 30px auto; 
         max-width: 90%; 
+        width: 95%; /* Ajusta para preencher mais em telas pequenas */
+        min-width: unset; /* Remove min-width fixo para mobile */
     }
 
     .section-card h2 {
